@@ -40,52 +40,52 @@ Domande in quattro formati (Vero/Falso, scelta multipla, aperte, codice) su tutt
 - Risposta: **Vero** ✓
 - Vero. Buffer finiti: a coda piena i nuovi pacchetti vengono scartati. Coda e perdita nascono dallo stesso meccanismo.
 **13. [Scelta multipla]** Quali sono i quattro contributi del ritardo nodale?
-- Elaborazione, accodamento, trasmissione, propagazione ✓
-- Solo trasmissione e propagazione
 - Andata, ritorno, coda, errore
+- Solo trasmissione e propagazione
 - DNS, TCP, IP, ARP
+- Elaborazione, accodamento, trasmissione, propagazione ✓
 - _Spiegazione:_ d_nodal = d_proc + d_queue + d_trans + d_prop.
 **14. [Scelta multipla]** Il ritardo di trasmissione di un pacchetto di L bit su un link a R bps è:
+- L·R
+- R/L
 - L/R ✓
 - d/s
-- R/L
-- L·R
 - _Spiegazione:_ Trasmissione = L/R. Propagazione = d/s. Non confonderle.
 **15. [Scelta multipla]** Perché Internet adotta la commutazione di pacchetto invece di quella di circuito?
-- Traffico bursty + condivisione statistica = molti più utenti ✓
 - Garantisce prestazioni costanti
-- Evita del tutto le perdite
 - Non richiede protocolli
+- Evita del tutto le perdite
+- Traffico bursty + condivisione statistica = molti più utenti ✓
 - _Spiegazione:_ Il traffico è a raffica: la condivisione on-demand serve molti più utenti della prenotazione. Il prezzo sono code e possibili perdite.
 **16. [Scelta multipla]** Scendendo dall'applicazione, qual è l'ordine corretto dei nomi dell'unità dati?
-- Messaggio, segmento, datagramma, frame ✓
 - Frame, datagramma, segmento, messaggio
 - Pacchetto, segmento, frame, bit
+- Messaggio, segmento, datagramma, frame ✓
 - Datagramma, frame, messaggio, segmento
 - _Spiegazione:_ Catena dell'incapsulamento da recitare a memoria.
 **17. [Scelta multipla]** Cosa rende variabile nel tempo il ritardo di accodamento?
-- Il livello di congestione/traffico ✓
 - La lunghezza del cavo
 - La velocità della luce
 - Il numero di livelli OSI
+- Il livello di congestione/traffico ✓
 - _Spiegazione:_ Dipende da quanto traffico converge sul collegamento (La/R).
 **18. [Scelta multipla]** Quale attacco rende un servizio indisponibile sommergendolo di traffico?
-- DoS/DDoS ✓
 - Sniffing
-- Spoofing
 - Caching
+- Spoofing
+- DoS/DDoS ✓
 - _Spiegazione:_ Denial of Service: si esauriscono le risorse del bersaglio con traffico fasullo.
 **19. [Scelta multipla]** Un pacchetto di 8000 bit viene trasmesso su un link a 1 Mbps (10^6 bps). Ritardo di trasmissione?
-- 8 ms ✓
-- 8 s
 - 125 µs
+- 8 s
+- 8 ms ✓
 - 80 ms
 - _Spiegazione:_ L/R = 8000 / 1.000.000 = 0,008 s = 8 ms.
 **20. [Scelta multipla]** Throughput end-to-end di tre link in serie a 10, 2 e 8 Mbps?
-- 2 Mbps ✓
 - 20 Mbps
-- 8 Mbps
 - 10 Mbps
+- 2 Mbps ✓
+- 8 Mbps
 - _Spiegazione:_ Lo determina il collo di bottiglia: il link più lento, 2 Mbps.
 **21. [Domanda aperta]** Spiega la differenza tra commutazione di pacchetto e di circuito, e perché Internet ha scelto la prima.
 - Punti chiave:
@@ -146,51 +146,51 @@ Domande in quattro formati (Vero/Falso, scelta multipla, aperte, codice) su tutt
 - Vero. Se non è cambiato, il server risponde 304 Not Modified senza rispedire l'oggetto.
 **15. [Scelta multipla]** Quale porta usa di default HTTP (non cifrato)?
 - 80 ✓
-- 443
 - 25
+- 443
 - 53
 - _Spiegazione:_ HTTP: 80. HTTPS (TLS): 443. SMTP: 25. DNS: 53.
 **16. [Scelta multipla]** Qual è il limite strutturale principale dell'architettura client-server pura?
-- Capacità centralizzata: il server è collo di bottiglia/SPOF ✓
-- Non supporta TCP
 - Richiede troppe porte
 - Non funziona su Internet
+- Capacità centralizzata: il server è collo di bottiglia/SPOF ✓
+- Non supporta TCP
 - _Spiegazione:_ La capacità è concentrata sul server; all'aumentare dei client diventa il collo di bottiglia ed è un single point of failure.
 **17. [Scelta multipla]** In HTTP non persistente, quanti RTT (circa) servono per ogni oggetto, escluso il tempo di trasmissione?
-- 2 (uno per la connessione, uno per richiesta/risposta) ✓
-- 1
 - 3
+- 1
 - 0
+- 2 (uno per la connessione, uno per richiesta/risposta) ✓
 - _Spiegazione:_ Setup TCP (1 RTT) + richiesta/prima parte risposta (1 RTT).
 **18. [Scelta multipla]** Quale record DNS mappa un nome host nel suo indirizzo IPv4?
-- A ✓
-- MX
-- NS
 - CNAME
+- NS
+- MX
+- A ✓
 - _Spiegazione:_ A = nome→IPv4. AAAA = IPv6. NS = server dei nomi. CNAME = alias. MX = server di posta.
 **19. [Scelta multipla]** Cosa fa un proxy / web cache?
-- Memorizza copie vicino agli utenti per ridurre traffico e latenza ✓
-- Cifra il traffico
-- Traduce nomi in IP
 - Instrada i pacchetti
+- Cifra il traffico
+- Memorizza copie vicino agli utenti per ridurre traffico e latenza ✓
+- Traduce nomi in IP
 - _Spiegazione:_ Agisce da client verso l'origine e da server verso il client; riduce il traffico sul link d'accesso.
 **20. [Scelta multipla]** In una query DNS ricorsiva, il carico della risoluzione ricade su:
-- Il server contattato, che risolve per intero ✓
-- Il client
 - Solo il root server
 - Il browser
+- Il client
+- Il server contattato, che risolve per intero ✓
 - _Spiegazione:_ La ricorsiva sposta l'onere sul server contattato; carica molto i livelli alti della gerarchia.
 **21. [Scelta multipla]** Perché HTTP/3 abbandona TCP a favore di QUIC (UDP)?
 - Evita l'head-of-line blocking di trasporto e velocizza l'handshake ✓
 - Perché UDP è affidabile
-- Per usare la porta 80
 - Per eliminare i cookie
+- Per usare la porta 80
 - _Spiegazione:_ QUIC fonde handshake e cifratura e gestisce flussi paralleli senza HOL blocking.
 **22. [Scelta multipla]** Una pagina ha 1 file base + 10 immagini. Con HTTP non persistente e senza connessioni parallele (2 RTT/oggetto), quanti RTT per setup+richieste?
-- 22 (2 × 11 oggetti) ✓
-- 11
-- 2
 - 20
+- 22 (2 × 11 oggetti) ✓
+- 2
+- 11
 - _Spiegazione:_ 11 oggetti totali × 2 RTT = 22 RTT (escluso il tempo di trasmissione).
 **23. [Domanda aperta]** Confronta Client-Server e P2P. Quali criticità affronta un 'Mega-Server' (Netflix/YouTube) e come si inseriscono le CDN?
 - Punti chiave:
@@ -269,64 +269,64 @@ Domande in quattro formati (Vero/Falso, scelta multipla, aperte, codice) su tutt
 - Risposta: **Falso** ✓
 - Falso. La annuncia il RICEVITORE (spazio libero nel suo buffer); il mittente non la supera.
 **19. [Scelta multipla]** Cosa identifica univocamente un socket TCP?
-- La quadrupla IP/porta sorgente e destinazione ✓
 - Solo la porta locale
-- L'indirizzo MAC
 - Il numero di sequenza
+- L'indirizzo MAC
+- La quadrupla IP/porta sorgente e destinazione ✓
 - _Spiegazione:_ Connection-oriented demultiplexing: 4-tuple.
 **20. [Scelta multipla]** Quale campo NON è presente nell'header UDP?
-- Numero di sequenza ✓
 - Porta sorgente
-- Lunghezza
 - Checksum
+- Numero di sequenza ✓
+- Lunghezza
 - _Spiegazione:_ UDP ha solo porte, lunghezza e checksum. I numeri di sequenza sono di TCP.
 **21. [Scelta multipla]** In Go-Back-N, alla ricezione di ACK(n) il mittente:
-- Fa scorrere la base della finestra a n+1 ✓
-- Ritrasmette n
-- Scarta la finestra
 - Chiude la connessione
+- Scarta la finestra
+- Ritrasmette n
+- Fa scorrere la base della finestra a n+1 ✓
 - _Spiegazione:_ ACK cumulativo: la base avanza e si liberano slot per nuovi invii.
 **22. [Scelta multipla]** Quale relazione evita ambiguità in Selective Repeat?
 - Finestra ≤ metà dello spazio dei numeri di sequenza ✓
-- Finestra = spazio dei numeri
 - Finestra = 1
 - Nessuna
+- Finestra = spazio dei numeri
 - _Spiegazione:_ Altrimenti il ricevitore non distingue pacchetti nuovi da ritrasmessi.
 **23. [Scelta multipla]** Alla perdita rilevata per timeout, TCP (classico) imposta la finestra di congestione a:
 - 1 MSS ✓
-- Metà
-- Zero
 - rwnd
+- Zero
+- Metà
 - _Spiegazione:_ Timeout → cwnd = 1 (ripartenza con slow start). 3 ACK duplicati → metà (Reno).
 **24. [Scelta multipla]** Alla perdita rilevata per 3 ACK duplicati, TCP Reno:
-- Dimezza la finestra ✓
 - La porta a 1
-- La raddoppia
 - Non cambia
+- La raddoppia
+- Dimezza la finestra ✓
 - _Spiegazione:_ Decremento moltiplicativo: la rete è congestionata ma 'meno grave' del timeout.
 **25. [Scelta multipla]** Cos'è AIMD?
-- Aumento additivo, decremento moltiplicativo ✓
-- Aumento moltiplicativo, decremento additivo
 - Solo aumento
 - Solo decremento
+- Aumento additivo, decremento moltiplicativo ✓
+- Aumento moltiplicativo, decremento additivo
 - _Spiegazione:_ Additive Increase / Multiplicative Decrease: il classico 'dente di sega' di TCP.
 **26. [Scelta multipla]** Perché il three-way handshake usa 3 fasi e non 2?
+- Per il controllo di flusso
 - Per sincronizzare in modo affidabile gli ISN di entrambe le parti ed evitare connessioni fantasma ✓
 - Per cifrare
-- Per il controllo di flusso
 - È una scelta arbitraria
 - _Spiegazione:_ Un 2-way non gestisce ritardi/riordino/duplicati: vecchi SYN potrebbero aprire connessioni fantasma.
 **27. [Scelta multipla]** Quale di questi è un tipico uso di UDP?
-- DNS ✓
 - Trasferimento file affidabile
-- Transazioni bancarie
 - Posta SMTP
+- DNS ✓
+- Transazioni bancarie
 - _Spiegazione:_ DNS, streaming/VoIP, gaming, SNMP. Le applicazioni che esigono affidabilità usano TCP.
 **28. [Scelta multipla]** La differenza chiave tra controllo di flusso e di congestione:
-- Flusso protegge il ricevitore, congestione protegge la rete ✓
-- Sono identici
-- Flusso riguarda i router
 - Congestione riguarda il buffer del ricevitore
+- Flusso riguarda i router
+- Sono identici
+- Flusso protegge il ricevitore, congestione protegge la rete ✓
 - _Spiegazione:_ rwnd (ricevitore) vs cwnd (rete). Trappola d'esame frequentissima.
 **29. [Domanda aperta]** Spiega il funzionamento del Go-Back-N, lato sender e lato receiver.
 - Punti chiave:
@@ -405,64 +405,64 @@ Domande in quattro formati (Vero/Falso, scelta multipla, aperte, codice) su tutt
 - Risposta: **Vero** ✓
 - Vero. Un ISP annuncia un unico prefisso che riassume molti blocchi dei clienti.
 **15. [Scelta multipla]** A cosa serve il TTL nel datagramma IP?
-- Evitare che i pacchetti circolino all'infinito ✓
 - Misurare la banda
-- Cifrare
 - Frammentare
+- Evitare che i pacchetti circolino all'infinito ✓
+- Cifrare
 - _Spiegazione:_ Decrementato a ogni hop; a zero il pacchetto viene scartato (e si genera un ICMP, sfruttato da traceroute).
 **16. [Scelta multipla]** Quale di questi è un blocco di indirizzi privati?
-- 192.168.0.0/16 ✓
-- 8.8.8.0/24
-- 200.23.16.0/20
 - 1.1.1.0/24
+- 8.8.8.0/24
+- 192.168.0.0/16 ✓
+- 200.23.16.0/20
 - _Spiegazione:_ Blocchi privati: 10/8, 172.16/12, 192.168/16. Gli altri sono indirizzi pubblici.
 **17. [Scelta multipla]** Con un prefisso /26, quanti indirizzi host assegnabili ci sono per sottorete?
-- 62 (2^6 − 2) ✓
-- 64
 - 254
+- 62 (2^6 − 2) ✓
 - 30
+- 64
 - _Spiegazione:_ 32−26 = 6 bit host → 2^6 = 64 indirizzi − 2 (rete e broadcast) = 62.
 **18. [Scelta multipla]** Cosa indica la /x nella notazione CIDR a.b.c.d/x?
 - Il numero di bit del prefisso di rete ✓
-- Il numero di host
-- Il numero di router
 - La versione IP
+- Il numero di router
+- Il numero di host
 - _Spiegazione:_ x = bit del prefisso; restano 32−x bit per gli host.
 **19. [Scelta multipla]** Quale struttura trasferisce i pacchetti dalle porte di input a quelle di output in un router?
-- La switching fabric ✓
 - Il TTL
-- La tabella NAT
 - Il checksum
+- La switching fabric ✓
+- La tabella NAT
 - _Spiegazione:_ Realizzata via memoria, bus o crossbar.
 **20. [Scelta multipla]** Cosa NON contiene l'header IPv6 rispetto a IPv4?
-- Checksum e campi di frammentazione ✓
 - Indirizzo sorgente
 - Hop limit
+- Checksum e campi di frammentazione ✓
 - Indirizzo destinazione
 - _Spiegazione:_ Header semplificato per velocizzare l'elaborazione nei router.
 **21. [Scelta multipla]** Quale politica di scheduling garantisce una banda minima per classe?
-- WFQ ✓
 - FIFO
 - Tail drop
 - LIFO
+- WFQ ✓
 - _Spiegazione:_ Weighted Fair Queuing: Round Robin generalizzato con pesi per classe.
 **22. [Scelta multipla]** La transizione da IPv4 a IPv6 usa spesso:
-- Il tunneling (IPv6 dentro IPv4) ✓
 - Il NAT
+- Il tunneling (IPv6 dentro IPv4) ✓
 - Il DNS
 - Il checksum
 - _Spiegazione:_ 'Pacchetto dentro un pacchetto' per attraversare tratti ancora solo-IPv4.
 **23. [Scelta multipla]** Data la rete 200.23.16.0/20, quanti indirizzi contiene il blocco?
 - 4096 ✓
-- 256
 - 1024
+- 256
 - 65536
 - _Spiegazione:_ 32−20 = 12 bit → 2^12 = 4096 indirizzi.
 **24. [Scelta multipla]** Devi dividere un /24 in 4 sottoreti uguali. Prefisso e host per sottorete?
-- /26, 62 host ✓
 - /25, 126 host
-- /28, 14 host
+- /26, 62 host ✓
 - /26, 64 host
+- /28, 14 host
 - _Spiegazione:_ 4 sottoreti = 2 bit in più → /26; host = 2^6 − 2 = 62.
 **25. [Domanda aperta]** Cosa sono le subnet? Che impatto hanno sugli indirizzi IP?
 - Punti chiave:
@@ -519,52 +519,52 @@ Domande in quattro formati (Vero/Falso, scelta multipla, aperte, codice) su tutt
 - Risposta: **Vero** ✓
 - Vero. Trasporta messaggi di controllo/errore incapsulati in datagrammi IP.
 **13. [Scelta multipla]** Differenza chiave tra link-state e distance-vector:
-- LS: ogni nodo ha la topologia completa e calcola (Dijkstra); DV: gossip tra vicini (Bellman-Ford) ✓
+- DV usa Dijkstra
 - Sono identici
 - LS è decentralizzato
-- DV usa Dijkstra
+- LS: ogni nodo ha la topologia completa e calcola (Dijkstra); DV: gossip tra vicini (Bellman-Ford) ✓
 - _Spiegazione:_ Mappa completa in mano a tutti vs voce passata tra vicini che converge.
 **14. [Scelta multipla]** Perché si usano protocolli diversi intra-AS e inter-AS?
-- Intra: prestazioni; inter: politica, scalabilità, autonomia ✓
-- Per usare TCP
-- Per il NAT
 - Non c'è motivo
+- Per usare TCP
+- Intra: prestazioni; inter: politica, scalabilità, autonomia ✓
+- Per il NAT
 - _Spiegazione:_ Dentro un AS conta la performance; tra AS contano gli accordi commerciali e la scala.
 **15. [Scelta multipla]** Quali sono due attributi importanti di una rotta BGP?
-- AS-PATH e NEXT-HOP ✓
-- TTL e checksum
 - rwnd e cwnd
+- TTL e checksum
+- AS-PATH e NEXT-HOP ✓
 - SYN e ACK
 - _Spiegazione:_ AS-PATH = sequenza di AS (anche anti-loop); NEXT-HOP = router interno verso l'AS successivo.
 **16. [Scelta multipla]** Cosa fa il controller in una rete SDN?
-- Ha la visione globale e calcola/installa le tabelle di inoltro (via OpenFlow) ✓
+- Risolve i nomi DNS
 - Inoltra i pacchetti
 - Fa NAT
-- Risolve i nomi DNS
+- Ha la visione globale e calcola/installa le tabelle di inoltro (via OpenFlow) ✓
 - _Spiegazione:_ Gli switch diventano 'stupidi' ed eseguono; il cervello è il controller centralizzato.
 **17. [Scelta multipla]** OSPF distribuisce le informazioni di stato dei collegamenti tramite:
-- Flooding (link-state advertisements) ✓
-- Scambio col solo vicino
-- DNS
 - DHCP
+- Flooding (link-state advertisements) ✓
+- DNS
+- Scambio col solo vicino
 - _Spiegazione:_ Ogni router inonda l'intero AS con lo stato dei propri collegamenti.
 **18. [Scelta multipla]** Quale problema affligge il distance-vector quando un collegamento si guasta?
-- Count-to-infinity (le cattive notizie viaggiano lente) ✓
 - Head-of-line blocking
-- Frammentazione
+- Count-to-infinity (le cattive notizie viaggiano lente) ✓
 - Spoofing
+- Frammentazione
 - _Spiegazione:_ Le stime cattive si propagano lentamente; mitigato (parzialmente) dalla poisoned reverse.
 **19. [Scelta multipla]** eBGP e iBGP indicano rispettivamente sessioni:
-- Tra AS diversi / dentro lo stesso AS ✓
-- Dentro / tra
 - TCP / UDP
+- Tra AS diversi / dentro lo stesso AS ✓
 - Client / server
+- Dentro / tra
 - _Spiegazione:_ eBGP = esterne (tra AS); iBGP = interne (entro l'AS).
 **20. [Scelta multipla]** Il protocollo OpenFlow opera tra:
-- Controller e switch (su TCP) ✓
+- Router e NAT
 - Due host
 - Client e DNS
-- Router e NAT
+- Controller e switch (su TCP) ✓
 - _Spiegazione:_ Messaggi controller↔switch su TCP (cifratura opzionale).
 **21. [Domanda aperta]** Confronta gli algoritmi link-state e distance-vector (conoscenza, calcolo, problemi).
 - Punti chiave:
@@ -618,52 +618,52 @@ Domande in quattro formati (Vero/Falso, scelta multipla, aperte, codice) su tutt
 - Risposta: **Vero** ✓
 - Vero. TCP è un flusso di byte senza confini di messaggio: una read dà ciò che è disponibile in quel momento.
 **13. [Scelta multipla]** Quale sequenza di chiamate è corretta per un SERVER TCP?
-- socket → bind → listen → accept → read/write → close ✓
 - socket → connect → write → close
 - socket → recvfrom → sendto
+- socket → bind → listen → accept → read/write → close ✓
 - bind → socket → accept
 - _Spiegazione:_ Togli listen e accept fallisce; togli bind e i client non sanno dove trovarti.
 **14. [Scelta multipla]** Quale sequenza è corretta per un CLIENT TCP?
+- connect → socket
 - socket → connect → write/read → close ✓
 - socket → bind → listen → accept
 - socket → recvfrom
-- connect → socket
 - _Spiegazione:_ Il client apre il socket, si connette (3-way handshake), scambia dati, chiude.
 **15. [Scelta multipla]** Per passare da TCP a UDP nel codice, cosa cambi in socket()?
-- Il tipo: da SOCK_STREAM a SOCK_DGRAM ✓
 - La famiglia AF_INET
 - La porta
 - Niente
+- Il tipo: da SOCK_STREAM a SOCK_DGRAM ✓
 - _Spiegazione:_ È l'unica modifica necessaria a socket().
 **16. [Scelta multipla]** Perché accept() restituisce un socket diverso da quello in ascolto?
-- Ogni connessione è identificata dalla quadrupla e il socket in ascolto deve restare libero per nuove connessioni ✓
+- Per chiudere prima
 - Per cifrare
 - Per il byte order
-- Per chiudere prima
+- Ogni connessione è identificata dalla quadrupla e il socket in ascolto deve restare libero per nuove connessioni ✓
 - _Spiegazione:_ È il connection-oriented demultiplexing: un socket per connessione.
 **17. [Scelta multipla]** Cosa fa htons(porta)?
-- Converte la porta (16 bit) in network byte order ✓
 - Risolve il nome
-- Apre la connessione
 - Legge dal socket
+- Apre la connessione
+- Converte la porta (16 bit) in network byte order ✓
 - _Spiegazione:_ La porta è uno 'short' a 16 bit → htons. L'indirizzo a 32 bit → htonl.
 **18. [Scelta multipla]** In UDP, quale chiamata riempie l'indirizzo del mittente del datagramma ricevuto?
 - recvfrom() ✓
-- read()
-- accept()
 - listen()
+- accept()
+- read()
 - _Spiegazione:_ recvfrom riempie la struttura del mittente, così il server può rispondergli con sendto.
 **19. [Scelta multipla]** Cosa fa memset(buffer, 0, sizeof(buffer)) prima di una read()?
 - Azzera il buffer: la stringa risulta terminata da \0 e senza spazzatura ✓
-- Invia i dati
 - Chiude il socket
 - Converte il byte order
+- Invia i dati
 - _Spiegazione:_ Garantisce un terminatore oltre i byte letti; senza, il buffer conterrebbe valori casuali dallo stack.
 **20. [Scelta multipla]** Un valore di ritorno 0 da read() su un socket TCP significa:
-- La connessione è stata chiusa dall'altro lato ✓
-- Errore
-- 0 byte ma connessione aperta per sempre
 - Timeout
+- La connessione è stata chiusa dall'altro lato ✓
+- 0 byte ma connessione aperta per sempre
+- Errore
 - _Spiegazione:_ >0 byte letti; 0 = chiusura; −1 = errore.
 **21. [Codice]** Commenta cosa fa questo blocco e perché si controlla il valore di ritorno.
 
