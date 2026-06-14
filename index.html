@@ -1,24 +1,17 @@
 <!doctype html>
-<html lang="it">
+<html lang="it" data-subject="home">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Reti — laboratorio d'esame</title>
+<title>Laboratorio d'esame — scegli la materia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ground:#100E0A; --ground-2:#1A1712; --ground-3:#231F18;
-  --paper:#F3EDE0; --paper-2:#E7DECC; --paper-edge:#D6CBB1;
-  --ink:#1A1712; --ink-2:#4A4235; --ink-3:#776B58;
-  --cream:#ECE5D6; --cream-2:#A69C87; --cream-3:#766C59;
-  --signal:#E0913A; --signal-2:#F4B662; --signal-ink:#B16C26;
-  --ok:#42704C; --ok-bg:rgba(66,112,76,.14); --ok-glow:rgba(66,112,76,.45);
-  --no:#A8442F; --no-bg:rgba(168,68,47,.12); --no-glow:rgba(168,68,47,.4);
+  --ground:#100E0A; --cream:#ECE5D6; --cream-2:#A69C87; --cream-3:#766C59;
+  --signal:#7C5CFC; --signal-2:#A88BFF; --accent-rgb:124,92,252; --on-signal:#160F33; --reveal-shadow:#4f34b8;
   --line-d:rgba(236,229,214,.13); --line-d2:rgba(236,229,214,.06);
-  --line-p:rgba(26,23,18,.16); --line-p2:rgba(26,23,18,.08);
-  --card-shadow:0 2px 5px rgba(0,0,0,.45),0 22px 44px -18px rgba(0,0,0,.6),0 60px 100px -50px rgba(0,0,0,.75);
   --display:"Bricolage Grotesque","Hanken Grotesk",system-ui,sans-serif;
   --serif:"Newsreader",Georgia,"Times New Roman",serif;
   --mono:"Space Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -26,311 +19,80 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{
-  font-family:var(--serif);color:var(--cream);background:var(--ground);min-height:100vh;overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-}
-/* ===== fixed background layers ===== */
+body{font-family:var(--serif);color:var(--cream);background:var(--ground);min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 #net{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;will-change:transform}
 .grid{position:fixed;inset:-5%;z-index:0;pointer-events:none;opacity:.5;
   background-image:repeating-linear-gradient(0deg,rgba(236,229,214,.045) 0 1px,transparent 1px 52px),
                    repeating-linear-gradient(90deg,rgba(236,229,214,.045) 0 1px,transparent 1px 52px);
-  -webkit-mask-image:radial-gradient(120% 90% at 50% 38%,rgba(0,0,0,.85),transparent 78%);
-  mask-image:radial-gradient(120% 90% at 50% 38%,rgba(0,0,0,.85),transparent 78%)}
+  -webkit-mask-image:radial-gradient(120% 90% at 50% 32%,rgba(0,0,0,.85),transparent 78%);
+  mask-image:radial-gradient(120% 90% at 50% 32%,rgba(0,0,0,.85),transparent 78%)}
 .ambient{position:fixed;inset:0;z-index:0;pointer-events:none;will-change:transform;
   background:
-    radial-gradient(80% 60% at 50% 16%,rgba(224,145,58,.10),transparent 60%),
+    radial-gradient(80% 60% at 50% 12%,rgba(var(--accent-rgb),.12),transparent 60%),
     radial-gradient(120% 120% at 50% 120%,rgba(0,0,0,.6),transparent 55%),
     radial-gradient(150% 100% at 50% 0%,transparent 40%,rgba(8,6,3,.55) 100%)}
-.ambient::after{content:"";position:absolute;inset:0;opacity:.05;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
-/* ===== masthead ===== */
-.masthead{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--ground) 80%,transparent);
-  backdrop-filter:blur(16px) saturate(1.15);border-bottom:1px solid var(--line-d)}
-.masthead-in{max-width:1240px;margin:0 auto;padding:clamp(14px,2.2vw,22px) clamp(20px,3vw,44px);
-  display:flex;align-items:center;justify-content:space-between;gap:22px}
-.brand{display:flex;align-items:center;gap:16px;min-width:0;animation:rise .8s var(--ease-out) both}
-.mark svg{display:block;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
-.kick{font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--signal);display:block;margin-bottom:6px}
-.title h1{font-family:var(--display);font-weight:800;font-size:clamp(1.85rem,4.2vw,2.9rem);line-height:.9;letter-spacing:-.026em;color:var(--cream);margin:0;text-shadow:0 2px 24px rgba(0,0,0,.5)}
-.sub{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--cream-2);margin-top:7px;display:block}
-.gauge{position:relative;display:grid;place-items:center;flex:0 0 auto;width:112px;height:112px;animation:rise .8s .07s var(--ease-out) both}
-.dial{position:absolute;inset:0}
-.dial-read{position:relative;text-align:center;line-height:1}
-.dial-read span{font-family:var(--display);font-weight:800;font-size:1.4rem;color:var(--cream);letter-spacing:-.02em}
-.dial-read small{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-3);margin-top:3px}
+.wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:clamp(40px,7vw,96px) clamp(20px,4vw,44px) clamp(56px,7vw,110px)}
+.hero{text-align:center;animation:rise .8s var(--ease-out) both;margin-bottom:clamp(40px,5vw,68px)}
+.hero .mark{display:inline-flex;margin-bottom:22px;filter:drop-shadow(0 6px 16px rgba(0,0,0,.5))}
+.kick{font-family:var(--mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--signal-2);display:block;margin-bottom:16px}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,6.5vw,4.4rem);line-height:.98;letter-spacing:-.03em;
+  color:var(--cream);margin:0 0 18px;text-shadow:0 4px 34px rgba(0,0,0,.5)}
+.hero h1 em{font-style:normal;background:linear-gradient(180deg,var(--signal-2),var(--signal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-family:var(--serif);font-size:clamp(1.05rem,2vw,1.28rem);line-height:1.55;color:var(--cream-2);max-width:60ch;margin:0 auto}
 
-/* ===== header promo badge ===== */
-.promo-badge{display:flex;align-items:center;gap:10px;text-decoration:none;flex:0 1 auto;min-width:0;
-  font:inherit;font-family:var(--mono);font-size:11px;letter-spacing:.03em;color:var(--cream);
-  border:1px solid color-mix(in srgb,var(--signal) 40%,var(--line-d));border-radius:99px;cursor:pointer;
-  padding:9px 16px 9px 13px;background:linear-gradient(180deg,rgba(224,145,58,.13),rgba(224,145,58,.04));
-  box-shadow:0 8px 20px -14px rgba(224,145,58,.6),0 1px 0 rgba(255,255,255,.05) inset;
-  transition:transform .18s var(--ease-out),border-color .18s,box-shadow .18s,background .18s;
-  animation:rise .8s .1s var(--ease-out) both}
-.promo-badge:hover{transform:translateY(-1px);border-color:var(--signal);
-  box-shadow:0 12px 26px -14px rgba(224,145,58,.75),0 1px 0 rgba(255,255,255,.07) inset}
-.promo-badge:active{transform:translateY(1px);box-shadow:0 1px 0 rgba(255,255,255,.05) inset}
-.promo-badge-dot{width:8px;height:8px;border-radius:50%;background:var(--signal);flex:0 0 auto;
-  box-shadow:0 0 0 3px rgba(224,145,58,.18);animation:badgePulse 2.6s ease-in-out infinite}
-.promo-badge-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--cream-2)}
-.promo-badge-text b{color:var(--signal-2);font-weight:700}
-.promo-badge-arrow{color:var(--signal-2);font-size:13px;flex:0 0 auto;transition:transform .22s var(--ease-out)}
-.promo-badge:hover .promo-badge-arrow{transform:translateY(2px)}
-@keyframes badgePulse{0%,100%{box-shadow:0 0 0 3px rgba(224,145,58,.18)}50%{box-shadow:0 0 0 6px rgba(224,145,58,.06)}}
+.sect-label{display:flex;align-items:center;gap:14px;margin:0 4px 22px;font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--cream-3)}
+.sect-label::after{content:"";flex:1;height:1px;background:var(--line-d)}
 
-#promo{scroll-margin-top:104px}
-.promo-card.flash{animation:promoFlash 1.8s var(--ease-out)}
-@keyframes promoFlash{
-  0%{box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 26px 54px -32px rgba(0,0,0,.85),0 0 0 2px var(--signal)}
-  100%{box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 26px 54px -32px rgba(0,0,0,.85),0 0 0 0 transparent}
-}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(18px,2.4vw,26px);perspective:1400px}
+.card{--ca:var(--signal);position:relative;display:flex;flex-direction:column;text-decoration:none;color:var(--cream);
+  border:1px solid var(--line-d);border-radius:16px;overflow:hidden;min-height:230px;
+  background:linear-gradient(165deg,color-mix(in srgb,var(--ca) 14%,transparent),rgba(36,32,24,.5) 52%,rgba(18,16,11,.72));
+  box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 26px 50px -34px rgba(0,0,0,.85);
+  padding:clamp(22px,2.6vw,30px);transform-style:preserve-3d;will-change:transform;
+  transition:transform .3s var(--ease-out),border-color .25s,box-shadow .3s}
+.card::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:4px;background:var(--ca);opacity:.75;
+  box-shadow:0 0 18px color-mix(in srgb,var(--ca) 70%,transparent)}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:radial-gradient(70% 80% at 100% 0%,color-mix(in srgb,var(--ca) 18%,transparent),transparent 60%)}
+.card:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--ca) 46%,var(--line-d));
+  box-shadow:0 1px 0 rgba(255,255,255,.07) inset,0 40px 60px -34px rgba(0,0,0,.9),0 0 0 1px color-mix(in srgb,var(--ca) 22%,transparent)}
+.card-code{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:color-mix(in srgb,var(--ca) 70%,var(--cream-3));margin-bottom:auto;padding-left:14px}
+.card-name{font-family:var(--display);font-weight:800;font-size:clamp(1.8rem,3vw,2.3rem);letter-spacing:-.025em;line-height:1;margin:26px 0 0;padding-left:14px}
+.card-sub{font-family:var(--serif);font-style:italic;font-size:13.5px;color:var(--cream-2);margin:9px 0 0;padding-left:14px}
+.card-blurb{font-family:var(--serif);font-size:.98rem;line-height:1.5;color:var(--cream-2);margin:16px 0 0;padding-left:14px;max-width:42ch}
+.card-go{display:inline-flex;align-items:center;gap:8px;margin:20px 0 0;padding-left:14px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ca);transition:gap .2s var(--ease-out)}
+.card:hover .card-go{gap:13px}
+.card-soon{position:absolute;top:18px;right:18px;font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--cream-3);border:1px solid var(--line-d);border-radius:99px;padding:4px 9px}
 
-/* ===== 3D scene ===== */
-.scene{position:relative;z-index:1;perspective:1600px;perspective-origin:50% 32%}
-.desk{position:absolute;left:50%;top:42%;width:170%;height:130%;transform:translate(-50%,0) rotateX(64deg);
-  transform-origin:50% 0;z-index:0;pointer-events:none;will-change:transform;opacity:.7;
-  background:radial-gradient(58% 48% at 50% 2%,rgba(224,145,58,.12),transparent 68%),
-    repeating-linear-gradient(0deg,rgba(236,229,214,.05) 0 1px,transparent 1px 48px),
-    repeating-linear-gradient(90deg,rgba(236,229,214,.05) 0 1px,transparent 1px 48px);
-  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.85),transparent 82%);
-  mask-image:linear-gradient(180deg,rgba(0,0,0,.85),transparent 82%)}
-.shell{position:relative;z-index:1;display:grid;grid-template-columns:312px 1fr;gap:clamp(22px,3vw,46px);
-  max-width:1240px;margin:0 auto;padding:clamp(26px,3.4vw,54px) clamp(20px,3vw,44px) clamp(40px,5vw,90px);align-items:start}
+/* ===== supporto ===== */
+.support{margin-top:clamp(48px,6vw,84px)}
+.support-card{position:relative;border:1px solid var(--line-d);border-radius:16px;overflow:hidden;
+  background:linear-gradient(150deg,rgba(var(--accent-rgb),.08),rgba(36,32,24,.5) 55%,rgba(18,16,11,.72));
+  box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 26px 50px -34px rgba(0,0,0,.85);
+  padding:clamp(26px,3.4vw,42px);display:flex;align-items:center;justify-content:space-between;gap:clamp(22px,3vw,44px);flex-wrap:wrap}
+.support-card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.45;
+  background:radial-gradient(60% 90% at 100% 0%,rgba(var(--accent-rgb),.16),transparent 60%)}
+.support-msg{position:relative;max-width:62ch}
+.support-msg .eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--signal-2);display:block;margin-bottom:11px}
+.support-msg h2{font-family:var(--display);font-weight:800;font-size:clamp(1.4rem,2.6vw,1.95rem);letter-spacing:-.02em;color:var(--cream);margin:0 0 12px}
+.support-msg p{font-family:var(--serif);font-size:clamp(1.02rem,1.6vw,1.1rem);line-height:1.62;color:var(--cream-2);margin:0}
+.support-btns{position:relative;display:flex;gap:12px;flex-wrap:wrap;flex:0 0 auto}
+.coffee{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+  color:var(--on-signal);background:linear-gradient(180deg,var(--signal-2),var(--signal));border-radius:10px;padding:14px 22px;
+  box-shadow:0 4px 0 var(--reveal-shadow),0 16px 28px -14px color-mix(in srgb,var(--signal) 80%,transparent);transition:.16s var(--ease-out)}
+.coffee:hover{transform:translateY(-1px);box-shadow:0 5px 0 var(--reveal-shadow),0 20px 34px -14px color-mix(in srgb,var(--signal) 80%,transparent)}
+.coffee:active{transform:translateY(3px);box-shadow:0 1px 0 var(--reveal-shadow)}
+.coffee.alt{color:var(--cream);background:rgba(255,255,255,.04);border:1px solid color-mix(in srgb,var(--signal) 40%,var(--line-d));box-shadow:none}
+.coffee.alt:hover{border-color:var(--signal);transform:translateY(-1px);box-shadow:none}
 
-/* ===== rail / stacked layers ===== */
-.rail{position:sticky;top:112px;align-self:start;display:flex;flex-direction:column;gap:20px}
-.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--cream-3)}
-.rail-head{display:flex;align-items:baseline;justify-content:space-between;margin:0 2px 13px}
-.rail-head .seq{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--cream-3);opacity:.65}
-.stack{display:flex;flex-direction:column;gap:9px}
-.layer{position:relative;display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;
-  color:var(--cream);padding:14px 16px 13px 18px;border:1px solid var(--line-d);border-radius:9px;
-  background:linear-gradient(180deg,rgba(255,255,255,.026),rgba(0,0,0,.10));
-  box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 10px 20px -14px rgba(0,0,0,.8);
-  transition:transform .26s var(--ease-out),border-color .22s,background .22s,box-shadow .26s}
-.layer::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:4px;border-radius:4px;background:var(--tone);opacity:.5;
-  box-shadow:0 0 0 0 transparent;transition:.26s}
-.layer::after{content:"";position:absolute;left:1px;right:1px;bottom:-4px;height:6px;border-radius:0 0 9px 9px;
-  background:linear-gradient(180deg,rgba(0,0,0,.32),transparent);opacity:.6;transition:.26s}
-.layer:hover{transform:translateY(-3px);border-color:rgba(236,229,214,.22);
-  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.06));
-  box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 20px 34px -16px rgba(0,0,0,.85)}
-.layer:hover::before{opacity:.85}
-.layer.on{border-color:color-mix(in srgb,var(--signal) 44%,var(--line-d));transform:translateY(-2px);
-  background:linear-gradient(100deg,color-mix(in srgb,var(--tone) 18%,transparent),rgba(255,255,255,.02) 60%);
-  box-shadow:0 1px 0 rgba(255,255,255,.07) inset,inset 0 0 0 1px color-mix(in srgb,var(--signal) 16%,transparent),0 26px 44px -20px rgba(0,0,0,.9)}
-.layer.on::before{opacity:1;background:var(--signal);box-shadow:0 0 16px color-mix(in srgb,var(--signal) 70%,transparent)}
-.layer-code{font-family:var(--mono);font-weight:700;font-size:17px;color:var(--tone);text-align:center;letter-spacing:.02em}
-.layer.on .layer-code{color:var(--signal-2)}
-.layer-name{font-family:var(--display);font-weight:650;font-size:14.5px;letter-spacing:.004em;line-height:1.08;display:block}
-.layer-sub{font-family:var(--serif);font-style:italic;font-size:11.5px;color:var(--cream-2);margin-top:3px;display:block}
-.layer-gauge{display:block;height:3px;margin-top:10px;background:rgba(236,229,214,.1);border-radius:2px;overflow:hidden}
-.layer-gauge i{display:block;height:100%;background:var(--tone);border-radius:2px}
-.layer-stat{font-family:var(--mono);font-size:10.5px;color:var(--cream-3);letter-spacing:.03em;white-space:nowrap}
-.layer.core{background:linear-gradient(100deg,rgba(224,145,58,.12),rgba(255,255,255,.02) 70%);border-color:rgba(224,145,58,.24)}
-.layer.core .layer-code{color:var(--signal-2);font-size:15px}
+.foot{margin-top:48px;text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--cream-3)}
 
-/* ===== filters panel ===== */
-.panel{position:relative;background:linear-gradient(180deg,rgba(36,32,24,.7),rgba(20,18,13,.7));border:1px solid var(--line-d);
-  border-radius:11px;padding:17px;backdrop-filter:blur(8px);box-shadow:0 18px 40px -24px rgba(0,0,0,.8)}
-.segmented{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
-.seg{font-family:var(--mono);font-size:11px;letter-spacing:.03em;color:var(--cream-2);background:rgba(255,255,255,.02);
-  border:1px solid var(--line-d);border-radius:6px;padding:8px 11px;cursor:pointer;transition:.16s var(--ease-out);box-shadow:0 2px 0 rgba(0,0,0,.25)}
-.seg:hover{color:var(--cream);border-color:rgba(236,229,214,.3);transform:translateY(-1px)}
-.seg:active{transform:translateY(1px);box-shadow:none}
-.seg.on{color:#1c1305;background:linear-gradient(180deg,var(--signal-2),var(--signal));border-color:var(--signal);
-  box-shadow:0 8px 18px -9px color-mix(in srgb,var(--signal) 80%,transparent),0 0 0 1px color-mix(in srgb,var(--signal) 40%,transparent) inset}
-.switches{margin-top:16px;border-top:1px solid var(--line-d2);padding-top:16px;display:flex;flex-direction:column;gap:12px}
-.switch{display:flex;align-items:center;gap:11px;cursor:pointer;font-family:var(--serif);font-size:13.5px;color:var(--cream-2);transition:.16s}
-.switch:hover{color:var(--cream)}
-.switch input{appearance:none;-webkit-appearance:none;width:37px;height:21px;border-radius:99px;background:rgba(236,229,214,.12);
-  border:1px solid var(--line-d);position:relative;cursor:pointer;transition:.22s var(--ease);flex:0 0 auto;box-shadow:inset 0 1px 3px rgba(0,0,0,.4)}
-.switch input::after{content:"";position:absolute;top:1.5px;left:2px;width:16px;height:16px;border-radius:50%;
-  background:var(--cream-2);transition:.24s var(--ease);box-shadow:0 2px 4px rgba(0,0,0,.4)}
-.switch input:checked{background:linear-gradient(180deg,var(--signal-2),var(--signal));border-color:var(--signal)}
-.switch input:checked::after{left:18px;background:#1c1305}
-.reset{margin:2px 0 0 2px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--cream-3);background:none;border:none;
-  cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--line-d);align-self:flex-start;transition:.18s}
-.reset:hover{color:var(--no);text-decoration-color:var(--no)}
-.reset.confirming{color:var(--no);text-decoration-color:var(--no);animation:resetPulse 1.1s ease-in-out infinite}
-@keyframes resetPulse{0%,100%{opacity:1}50%{opacity:.45}}
-
-/* ===== stage + floating 3D sheet ===== */
-.stage{min-width:0}
-.tilt-wrap{perspective:1300px;perspective-origin:50% 40%}
-.deck{position:relative;transform-style:preserve-3d;will-change:transform;animation:deckIn 1s .12s var(--ease-out) backwards}
-.sheet-shadow{position:absolute;left:7%;right:7%;bottom:-4%;height:64px;border-radius:50%;z-index:-2;
-  background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.6),transparent 72%);filter:blur(20px);transform:translateZ(-90px)}
-.sheet-back{position:absolute;inset:0;z-index:-1;background:var(--paper-2);border:1px solid var(--paper-edge);border-radius:3px;
-  transform:translate3d(12px,14px,-12px);box-shadow:0 30px 60px -32px rgba(0,0,0,.7)}
-.sheet{position:relative;background:var(--paper);color:var(--ink);border:1px solid var(--paper-edge);border-radius:3px;overflow:hidden;
-  min-height:452px;display:flex;flex-direction:column;box-shadow:var(--card-shadow);transform:translateZ(0);
-  padding:clamp(28px,3.4vw,46px) clamp(26px,3.4vw,48px) clamp(24px,2.8vw,40px) clamp(50px,5vw,76px);
-  background-image:linear-gradient(180deg,rgba(255,255,255,.5),rgba(0,0,0,.018))}
-.sheet::before{content:"";position:absolute;top:0;bottom:0;left:0;width:34px;background:linear-gradient(90deg,rgba(26,23,18,.06),transparent);border-right:1px dashed var(--line-p2)}
-.sheet::after{content:"";position:absolute;left:13px;top:0;bottom:0;width:10px;background-repeat:repeat-y;background-position:center 40px;
-  background-size:10px 68px;background-image:radial-gradient(circle,rgba(26,23,18,.2) 0 3.8px,transparent 4.3px)}
-.sheet-inner{display:flex;flex-direction:column;flex:1;animation:pageIn .5s var(--ease-out) both}
-.sheet-inner.still{animation:none}
-
-.sheet-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:21px;padding-bottom:15px;border-bottom:1px solid var(--line-p2)}
-.meta-code{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
-.meta-code b{color:var(--ink)}
-.meta-badge{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--no);
-  border:1px solid color-mix(in srgb,var(--no) 38%,transparent);border-radius:99px;padding:5px 10px}
-.meta-fmt{margin-left:auto;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);
-  border:1px solid var(--line-p);border-radius:99px;padding:6px 12px}
-.prompt{font-family:var(--serif);font-weight:500;font-size:clamp(1.22rem,2.1vw,1.56rem);line-height:1.34;letter-spacing:-.004em;color:var(--ink);margin:0 0 24px;max-width:60ch}
-.snippet{font-family:var(--mono);font-size:12.5px;line-height:1.6;color:#2b2620;background:#ECE3D1;border:1px solid var(--paper-edge);
-  border-left:3px solid var(--signal);border-radius:5px;padding:15px 17px;white-space:pre;overflow-x:auto;margin:0 0 23px;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 8px 20px -16px rgba(0,0,0,.5)}
-
-.choices{display:flex;flex-direction:column;gap:10px}
-.choice{position:relative;display:flex;align-items:flex-start;gap:13px;width:100%;text-align:left;cursor:pointer;
-  font-family:var(--serif);font-size:1.02rem;line-height:1.42;color:var(--ink);background:linear-gradient(180deg,#F2EBDD,#EBE3D2);
-  border:1px solid var(--paper-edge);border-radius:7px;padding:14px 16px;
-  box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 3px 0 rgba(26,23,18,.08),0 6px 14px -10px rgba(0,0,0,.4);
-  transition:transform .15s var(--ease-out),border-color .15s,box-shadow .15s,background .15s}
-.choice:hover:not(:disabled){transform:translateY(-2px);border-color:color-mix(in srgb,var(--ink) 20%,var(--paper-edge));
-  box-shadow:-3px 0 0 0 color-mix(in srgb,var(--signal) 85%,transparent),0 1px 0 rgba(255,255,255,.6) inset,0 4px 0 rgba(26,23,18,.1),0 12px 22px -12px rgba(0,0,0,.45)}
-.choice:active:not(:disabled){transform:translateY(1px);box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 1px 0 rgba(26,23,18,.08)}
-.choice:disabled{cursor:default}
-.choice-key{font-family:var(--mono);font-weight:700;font-size:12px;color:var(--ink-3);border:1px solid var(--line-p);border-radius:5px;
-  padding:3px 8px;flex:0 0 auto;line-height:1.25;background:#E6DDC9;box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}
-.choice.correct{border-color:var(--ok);background:linear-gradient(180deg,var(--ok-bg),rgba(66,112,76,.07));
-  box-shadow:0 0 0 1px var(--ok) inset,0 0 26px -6px var(--ok-glow),0 6px 16px -10px rgba(0,0,0,.4);animation:pop .4s var(--ease) both}
-.choice.correct .choice-key{background:var(--ok);color:var(--paper);border-color:var(--ok)}
-.choice.wrong{border-color:var(--no);background:linear-gradient(180deg,var(--no-bg),rgba(168,68,47,.06));
-  box-shadow:0 0 0 1px var(--no) inset,0 0 22px -8px var(--no-glow)}
-.choice.wrong .choice-key{background:var(--no);color:var(--paper);border-color:var(--no)}
-.choices.vf{flex-direction:row;gap:13px}
-.choices.vf .choice{flex:1;justify-content:center;align-items:center;font-family:var(--mono);font-weight:700;letter-spacing:.04em;padding:18px}
-
-.feedback{margin-top:21px;padding-top:19px;border-top:1px solid var(--line-p2);display:none}
-.feedback.show{display:block;animation:reveal .32s var(--ease-out) both}
-.verdict{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:13px}
-.verdict.ok{color:var(--ok)} .verdict.no{color:var(--no)} .verdict.key{color:var(--signal-ink)}
-.vmark{width:16px;height:16px;flex:0 0 auto}
-.expl{font-family:var(--serif);font-size:1rem;line-height:1.56;color:var(--ink-2);max-width:62ch}
-.keylist{list-style:none;counter-reset:k;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:11px;max-width:64ch}
-.keylist li{position:relative;padding-left:28px;font-family:var(--serif);font-size:1rem;line-height:1.5;color:var(--ink-2)}
-.keylist li::before{content:counter(k,decimal-leading-zero);counter-increment:k;position:absolute;left:0;top:.18em;font-family:var(--mono);font-weight:700;font-size:10px;letter-spacing:.04em;color:var(--signal-ink)}
-.reveal{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:#1c1305;
-  background:linear-gradient(180deg,var(--signal-2),var(--signal));border:none;border-radius:7px;padding:13px 19px;cursor:pointer;
-  transition:.18s var(--ease-out);box-shadow:0 4px 0 #a9651f,0 12px 24px -12px color-mix(in srgb,var(--signal) 80%,transparent)}
-.reveal:hover{transform:translateY(-1px);box-shadow:0 5px 0 #a9651f,0 16px 28px -12px color-mix(in srgb,var(--signal) 80%,transparent)}
-.reveal:active{transform:translateY(3px);box-shadow:0 1px 0 #a9651f}
-.selfgrade{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
-.sg{font-family:var(--mono);font-size:11px;letter-spacing:.03em;color:var(--ink-2);background:#E6DDC9;border:1px solid var(--paper-edge);
-  border-radius:7px;padding:10px 14px;cursor:pointer;transition:.15s var(--ease-out);box-shadow:0 2px 0 rgba(26,23,18,.1)}
-.sg:hover{border-color:color-mix(in srgb,var(--ink) 22%,var(--paper-edge));color:var(--ink);transform:translateY(-1px)}
-.sg:active{transform:translateY(1px);box-shadow:none}
-.sg.know.sel{background:var(--ok);color:var(--paper);border-color:var(--ok)}
-.sg.almost.sel{background:var(--signal);color:#1c1305;border-color:var(--signal)}
-.sg.review.sel{background:var(--no);color:var(--paper);border-color:var(--no)}
-.selfnote{font-family:var(--serif);font-style:italic;font-size:12.5px;color:var(--ink-3);margin-top:12px;max-width:60ch}
-
-.pager{margin-top:auto;padding-top:23px;display:flex;align-items:center;gap:14px;border-top:1px solid var(--line-p2)}
-.pager-count{margin:0 auto;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-3)}
-.pager-count b{color:var(--ink)}
-.pgbtn{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);
-  background:linear-gradient(180deg,#F2EBDD,#E9E1D0);border:1px solid var(--paper-edge);border-radius:7px;padding:11px 16px;cursor:pointer;
-  transition:.15s var(--ease-out);box-shadow:0 3px 0 rgba(26,23,18,.1),0 6px 14px -10px rgba(0,0,0,.4)}
-.pgbtn:hover:not(:disabled){transform:translateY(-1px);border-color:color-mix(in srgb,var(--ink) 24%,var(--paper-edge));box-shadow:0 4px 0 rgba(26,23,18,.1),0 10px 18px -10px rgba(0,0,0,.45)}
-.pgbtn:active:not(:disabled){transform:translateY(2px);box-shadow:0 1px 0 rgba(26,23,18,.1)}
-.pgbtn:disabled{opacity:.38;cursor:default}
-.empty{margin:auto;text-align:center;max-width:360px;padding:46px 0}
-.empty b{font-family:var(--display);font-weight:650;font-size:1.24rem;color:var(--ink);display:block;margin-bottom:9px}
-.empty span{font-family:var(--serif);color:var(--ink-3);line-height:1.55}
-.kbd{margin:18px 2px 0;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--cream-3);text-align:center}
-
-@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@keyframes deckIn{from{opacity:0;transform:translateY(40px) rotateX(12deg) scale(.96)}to{opacity:1;transform:none}}
-@keyframes pageIn{from{opacity:0;transform:translateY(12px) rotateX(8deg);filter:blur(1.5px)}to{opacity:1;transform:none;filter:none}}
-@keyframes reveal{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
-@keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.013)}100%{transform:scale(1)}}
-:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:6px}
-
-/* ===== promo: riassunto a pagamento ===== */
-.promo{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 clamp(20px,3vw,44px) clamp(48px,6vw,96px)}
-.promo-in{animation:rise .8s var(--ease-out) both}
-.promo-card{position:relative;border-radius:14px;border:1px solid var(--line-d);
-  background:linear-gradient(150deg,rgba(224,145,58,.08),rgba(36,32,24,.55) 46%,rgba(20,18,13,.7));
-  box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 26px 54px -32px rgba(0,0,0,.85);
-  backdrop-filter:blur(8px);overflow:hidden;padding:clamp(26px,3.4vw,40px) clamp(24px,3.4vw,40px)}
-.promo-card::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.4;
-  background:radial-gradient(60% 80% at 100% 0%,rgba(224,145,58,.16),transparent 60%)}
-.promo-tab{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--signal-2);border:1px solid color-mix(in srgb,var(--signal) 38%,transparent);
-  border-radius:99px;padding:6px 13px;margin-bottom:18px;background:rgba(224,145,58,.08)}
-.promo-grid{position:relative;display:grid;grid-template-columns:1.55fr 1fr;gap:clamp(28px,3.6vw,52px)}
-.promo-eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--cream-3);display:block;margin-bottom:9px}
-.promo-title{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,2.8vw,2.05rem);letter-spacing:-.02em;
-  color:var(--cream);margin:0 0 14px;line-height:1.12}
-.promo-lede{font-family:var(--serif);font-size:1.02rem;line-height:1.62;color:var(--cream-2);max-width:58ch;margin:0 0 20px}
-.promo-lede b{color:var(--signal-2);font-weight:600}
-.promo-list{list-style:none;margin:0 0 22px;padding:0;display:flex;flex-direction:column;gap:11px;max-width:60ch}
-.promo-list li{position:relative;padding-left:24px;font-family:var(--serif);font-size:.98rem;line-height:1.55;color:var(--cream-2)}
-.promo-list li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:2px;background:var(--signal);border-radius:2px}
-.promo-coverage{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--cream-3)}
-.dotline{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 3px var(--ok-bg);flex:0 0 auto}
-
-.promo-side{display:flex;flex-direction:column;gap:16px}
-.promo-price{border:1px solid var(--line-d);border-radius:11px;padding:18px 20px;
-  background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(0,0,0,.12));
-  box-shadow:0 14px 30px -20px rgba(0,0,0,.7);text-align:center}
-.promo-price-num{font-family:var(--display);font-weight:800;font-size:2.6rem;letter-spacing:-.03em;
-  background:linear-gradient(180deg,var(--signal-2),var(--signal));-webkit-background-clip:text;background-clip:text;
-  color:transparent;line-height:1;display:block}
-.promo-price-note{display:block;margin-top:10px;font-family:var(--serif);font-style:italic;font-size:12.5px;
-  line-height:1.5;color:var(--cream-3)}
-.promo-block{border:1px solid var(--line-d);border-radius:11px;padding:16px 18px;
-  background:linear-gradient(180deg,rgba(255,255,255,.022),rgba(0,0,0,.08))}
-.promo-label{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-3);
-  display:block;margin-bottom:11px}
-.promo-contacts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
-.promo-contacts li{position:relative;padding-left:17px;font-family:var(--serif);font-size:.96rem;line-height:1.5;color:var(--cream-2)}
-.promo-contacts li::before{content:"—";position:absolute;left:0;color:var(--signal);font-family:var(--mono)}
-.promo-contacts b{color:var(--cream)}
-.promo-contacts a{color:var(--signal-2);text-decoration:underline;text-underline-offset:3px;text-decoration-color:color-mix(in srgb,var(--signal) 40%,transparent)}
-.promo-contacts a:hover{color:var(--signal-2);text-decoration-color:var(--signal-2)}
-.promo-pay{display:flex;flex-wrap:wrap;gap:8px}
-.paychip{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--cream);border:1px solid var(--line-d);
-  border-radius:7px;padding:8px 12px;background:rgba(255,255,255,.03);transition:.16s var(--ease-out)}
-.paychip:hover{border-color:color-mix(in srgb,var(--signal) 45%,var(--line-d));color:var(--signal-2);transform:translateY(-1px)}
-
-@media (max-width:820px){
-  .promo-grid{grid-template-columns:1fr}
-  .promo-side{order:-1}
-  .promo-price{text-align:left;display:flex;align-items:center;justify-content:space-between;gap:18px}
-  .promo-price-note{margin-top:0;text-align:right}
-}
-
-@media (max-width:900px){
-  .shell{grid-template-columns:1fr;gap:18px;padding-top:24px}
-  .rail{position:static;top:auto}
-  .stack{flex-direction:row;overflow-x:auto;gap:9px;padding-bottom:8px;scrollbar-width:thin}
-  .layer{min-width:240px;flex:0 0 auto}
-  .deck{animation-duration:.6s}
-}
-@media (max-width:560px){
-  .masthead-in{flex-direction:row;align-items:center}
-  .gauge{width:88px;height:88px}.dial-read span{font-size:1.1rem}
-  .desk{display:none}
-  .sheet{padding-left:44px}.sheet::after{left:11px}
-  .title h1{font-size:1.7rem}
-  .promo-badge-text{display:none}
-  .promo-badge{padding:9px 11px;gap:8px}
-}
-@media (max-width:400px){
-  .promo-badge{order:3;flex-basis:100%;justify-content:center;margin-top:2px}
-  .masthead-in{flex-wrap:wrap;row-gap:10px}
-}
-@media (prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
-  .deck{transform:none!important}
-}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:8px}
+@media (max-width:600px){.support-card{flex-direction:column;align-items:flex-start}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.card:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -338,322 +100,85 @@ body{
 <div class="grid" aria-hidden="true"></div>
 <div class="ambient" aria-hidden="true"></div>
 
-<header class="masthead"><div class="masthead-in">
-  <div class="brand">
-    <span class="mark"><svg width="32" height="36" viewBox="0 0 32 36" fill="none" aria-hidden="true">
-      <rect x="3" y="3" width="26" height="6.5" rx="2" stroke="#F4B662" stroke-width="1.7"/>
+<div class="wrap">
+  <header class="hero">
+    <span class="mark"><svg width="46" height="52" viewBox="0 0 32 36" fill="none" aria-hidden="true">
+      <rect x="3" y="3" width="26" height="6.5" rx="2" stroke="#A88BFF" stroke-width="1.7"/>
       <rect x="3" y="14" width="26" height="6.5" rx="2" stroke="#ECE5D6" stroke-width="1.5" opacity=".78"/>
       <rect x="3" y="25" width="26" height="6.5" rx="2" stroke="#ECE5D6" stroke-width="1.5" opacity=".5"/>
-      <circle cx="16" cy="6.2" r="1.5" fill="#F4B662"/><circle cx="16" cy="17.2" r="1.4" fill="#ECE5D6" opacity=".6"/>
+      <circle cx="16" cy="6.2" r="1.5" fill="#A88BFF"/><circle cx="16" cy="17.2" r="1.4" fill="#ECE5D6" opacity=".6"/>
     </svg></span>
-    <span class="title">
-      <span class="kick">Laboratorio d'esame</span>
-      <h1>Reti</h1>
-      <span class="sub">Kurose–Ross · trainer interattivo</span>
-    </span>
-  </div>
-  <button type="button" class="promo-badge" id="promoBadge">
-    <span class="promo-badge-dot" aria-hidden="true"></span>
-    <span class="promo-badge-text"><b>Riassunto scritto</b> Cap. 1–5 + Lab · 5€</span>
-    <span class="promo-badge-arrow" aria-hidden="true">↓</span>
-  </button>
-  <div class="gauge">
-    <svg class="dial" viewBox="0 0 120 120" aria-hidden="true">
-      <circle cx="60" cy="60" r="38" fill="none" stroke="rgba(236,229,214,.1)" stroke-width="1" stroke-dasharray="2 6"/>
-      <circle cx="60" cy="60" r="46" fill="none" stroke="rgba(236,229,214,.12)" stroke-width="7" stroke-linecap="round" stroke-dasharray="216.77 400" transform="rotate(135 60 60)"/>
-      <circle id="readyArc" cx="60" cy="60" r="46" fill="none" stroke="url(#dg)" stroke-width="7" stroke-linecap="round" stroke-dasharray="289.027" stroke-dashoffset="289.027" transform="rotate(135 60 60)" style="transition:stroke-dashoffset .7s var(--ease)"/>
-      <defs><linearGradient id="dg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E0913A"/><stop offset="1" stop-color="#F4B662"/></linearGradient></defs>
-    </svg>
-    <div class="dial-read"><span id="readyPct">0%</span><small>pronto</small></div>
-  </div>
-</div></header>
+    <span class="kick">Laboratorio d'esame</span>
+    <h1>Preparati allo <em>scritto</em>,<br>una materia alla volta</h1>
+    <p>Quiz interattivi, banca domande e esercizi pratici per ripassare in vista dell'esame. Scegli la materia per iniziare — i progressi di ognuna restano separati.</p>
+  </header>
 
-<div class="scene">
-  <div class="desk" aria-hidden="true"></div>
-  <div class="shell">
-    <aside class="rail">
-      <div>
-        <div class="rail-head"><span class="eyebrow">Gli strati</span><span class="seq">protocolli</span></div>
-        <nav class="stack" id="stack"></nav>
+  <div class="sect-label">Le materie</div>
+  <div class="cards" id="cards"></div>
+
+  <section class="support" id="support">
+    <div class="support-card">
+      <div class="support-msg">
+        <span class="eyebrow">Supporta il progetto</span>
+        <h2>Ti è utile? Offrimi un caffè</h2>
+        <p id="supportText"></p>
       </div>
-      <div class="panel">
-        <span class="eyebrow">Formato</span>
-        <div class="segmented" id="fmtChips"></div>
-        <div class="switches">
-          <label class="switch"><input type="checkbox" id="togReview"><span>Solo da rivedere</span></label>
-          <label class="switch"><input type="checkbox" id="togShuffle"><span>Mescola l'ordine</span></label>
-          <button class="reset" id="resetBtn">azzera i progressi</button>
-        </div>
-      </div>
-    </aside>
-    <main class="stage">
-      <div class="tilt-wrap">
-        <div class="deck" id="deck">
-          <div class="sheet-shadow" aria-hidden="true"></div>
-          <div class="sheet-back" aria-hidden="true"></div>
-          <article class="sheet" id="card"></article>
-        </div>
-      </div>
-      <p class="kbd">← → naviga · 1–4 / V F rispondi · barra spazio rivela</p>
-    </main>
-  </div>
+      <div class="support-btns" id="supportBtns"></div>
+    </div>
+  </section>
+
+  <p class="foot">fatto per ripassare · i progressi vivono nel tuo browser</p>
 </div>
 
-<section class="promo" id="promo">
-  <div class="promo-in">
-    <div class="promo-card">
-      <div class="promo-tab">extra · facoltativo</div>
-      <div class="promo-grid">
-        <div class="promo-main">
-          <span class="promo-eyebrow">Materiale aggiuntivo</span>
-          <h2 class="promo-title">Riassunto scritto completo del corso</h2>
-          <p class="promo-lede">Il quiz e la banca domande qui sopra sono e restano <b>gratuiti</b>.
-          Ho preparato anche un riassunto scritto completo (Cap. 1–5 + Lab) — spiegazioni chiare passo
-          per passo, pensate per chi deve recuperare in poco tempo.</p>
-
-          <ul class="promo-list">
-            <li>Spiegazioni discorsive capitolo per capitolo (Internet · Applicazione · Trasporto ·
-              Rete Data Plane · Rete Control Plane), pensate per essere chiare dalla prima lettura
-              anche senza aver seguito a lezione, con analogie ed esempi</li>
-            <li>Tabelle dei concetti chiave per ogni capitolo</li>
-            <li>Un riassunto finale che collega tutti gli argomenti</li>
-            <li>Sezione di laboratorio (socket in C)</li>
-          </ul>
-
-          <div class="promo-coverage">
-            <span class="dotline" aria-hidden="true"></span>
-            copertura: Cap. 1–5 + Laboratorio — aggiornato 11/06/2026
-          </div>
-        </div>
-
-        <aside class="promo-side">
-          <div class="promo-price">
-            <span class="promo-price-num">5€</span>
-            <span class="promo-price-note">materiale inviato subito dopo<br>la ricezione del pagamento</span>
-          </div>
-
-          <div class="promo-block">
-            <span class="promo-label">Come contattarmi</span>
-            <ul class="promo-contacts">
-              <li>Scrivimi in privato</li>
-              <li>Taggami nel gruppo <b>"2° Anno Informatica VC 2025/26"</b> come <b>@[deleted]</b></li>
-              <li>Oppure scrivi a <a href="mailto:20059736@studenti.uniupo.it">20059736@studenti.uniupo.it</a></li>
-            </ul>
-          </div>
-
-          <div class="promo-block">
-            <span class="promo-label">Metodi di pagamento</span>
-            <div class="promo-pay">
-              <span class="paychip">PayPal</span>
-              <span class="paychip">Bonifico istantaneo (IBAN)</span>
-              <span class="paychip">Revolut</span>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </div>
-</section>
-
+<script src="subjects.js"></script>
 <script>
-const BANK = [{"id": "ch1-01", "ch": "ch1", "fmt": "vf", "q": "Con lo store-and-forward un router può iniziare a ritrasmettere un pacchetto su un collegamento prima di averlo ricevuto interamente.", "correct": false, "opts": null, "explain": "Falso. Store-and-forward: l'intero pacchetto deve arrivare al router prima di poter essere trasmesso sul collegamento successivo. Ogni hop aggiunge quindi L/R di ritardo di trasmissione.", "points": null, "code": null}, {"id": "ch1-02", "ch": "ch1", "fmt": "vf", "q": "Il ritardo di trasmissione di un pacchetto dipende dalla distanza fisica del collegamento.", "correct": false, "opts": null, "explain": "Falso. La trasmissione è L/R (lunghezza pacchetto / velocità del link). È la propagazione (d/s) a dipendere dalla distanza. Trappola classica V/F.", "points": null, "code": null}, {"id": "ch1-03", "ch": "ch1", "fmt": "vf", "q": "La commutazione di circuito riserva le risorse lungo il percorso per l'intera durata della comunicazione.", "correct": true, "opts": null, "explain": "Vero. Risorse dedicate (FDM/TDM): prestazione garantita ma sprecata quando l'utente non trasmette.", "points": null, "code": null}, {"id": "ch1-04", "ch": "ch1", "fmt": "vf", "q": "Nel multiplexing statistico le risorse del collegamento sono prenotate in anticipo per ciascun flusso.", "correct": false, "opts": null, "explain": "Falso. Niente prenotazione: le risorse sono condivise on-demand. È proprio questo a rendere la commutazione di pacchetto efficiente col traffico bursty.", "points": null, "code": null}, {"id": "ch1-05", "ch": "ch1", "fmt": "vf", "q": "Il ritardo di accodamento è l'unico dei quattro ritardi che varia con il livello di congestione.", "correct": true, "opts": null, "explain": "Vero. Elaborazione è ~costante e piccola; trasmissione e propagazione sono fisse per dato pacchetto/link. La coda dipende dal traffico (La/R).", "points": null, "code": null}, {"id": "ch1-06", "ch": "ch1", "fmt": "vf", "q": "Con intensità di traffico La/R che tende a 1, il ritardo medio di accodamento tende a zero.", "correct": false, "opts": null, "explain": "Falso. Tende a crescere enormemente (verso l'infinito). La/R≈0 → coda piccola; La/R→1 → coda grande; La/R>1 → instabile.", "points": null, "code": null}, {"id": "ch1-07", "ch": "ch1", "fmt": "vf", "q": "Il throughput end-to-end di un percorso è determinato dal collegamento collo di bottiglia (il più lento).", "correct": true, "opts": null, "explain": "Vero. Potenziare gli altri link non aiuta finché non si tocca il bottleneck.", "points": null, "code": null}, {"id": "ch1-08", "ch": "ch1", "fmt": "vf", "q": "Lo stack protocollare Internet ha 7 livelli, come il modello OSI.", "correct": false, "opts": null, "explain": "Falso. Internet ne ha 5 (applicazione, trasporto, rete, collegamento, fisico). OSI ne ha 7: aggiunge presentazione e sessione.", "points": null, "code": null}, {"id": "ch1-09", "ch": "ch1", "fmt": "vf", "q": "Durante l'incapsulamento, un segmento di trasporto viene incapsulato in un datagramma di rete.", "correct": true, "opts": null, "explain": "Vero. Messaggio → segmento (trasporto) → datagramma (rete) → frame (collegamento).", "points": null, "code": null}, {"id": "ch1-10", "ch": "ch1", "fmt": "vf", "q": "Lo spoofing dell'indirizzo IP consiste nell'iniettare pacchetti con un indirizzo sorgente falso.", "correct": true, "opts": null, "explain": "Vero. È la falsificazione dell'indirizzo sorgente; diverso dallo sniffing (intercettazione) e dal DoS (saturazione).", "points": null, "code": null}, {"id": "ch1-11", "ch": "ch1", "fmt": "vf", "q": "I livelli presentazione e sessione del modello OSI sono presenti anche nello stack Internet.", "correct": false, "opts": null, "explain": "Falso. Mancano nello stack Internet; se servono, vengono implementati nell'applicazione.", "points": null, "code": null}, {"id": "ch1-12", "ch": "ch1", "fmt": "vf", "q": "La perdita di pacchetti avviene quando il buffer (coda) di un collegamento è pieno.", "correct": true, "opts": null, "explain": "Vero. Buffer finiti: a coda piena i nuovi pacchetti vengono scartati. Coda e perdita nascono dallo stesso meccanismo.", "points": null, "code": null}, {"id": "ch1-13", "ch": "ch1", "fmt": "mc", "q": "Quali sono i quattro contributi del ritardo nodale?", "correct": 3, "opts": ["Andata, ritorno, coda, errore", "Solo trasmissione e propagazione", "DNS, TCP, IP, ARP", "Elaborazione, accodamento, trasmissione, propagazione"], "explain": "d_nodal = d_proc + d_queue + d_trans + d_prop.", "points": null, "code": null}, {"id": "ch1-14", "ch": "ch1", "fmt": "mc", "q": "Il ritardo di trasmissione di un pacchetto di L bit su un link a R bps è:", "correct": 2, "opts": ["L·R", "R/L", "L/R", "d/s"], "explain": "Trasmissione = L/R. Propagazione = d/s. Non confonderle.", "points": null, "code": null}, {"id": "ch1-15", "ch": "ch1", "fmt": "mc", "q": "Perché Internet adotta la commutazione di pacchetto invece di quella di circuito?", "correct": 3, "opts": ["Garantisce prestazioni costanti", "Non richiede protocolli", "Evita del tutto le perdite", "Traffico bursty + condivisione statistica = molti più utenti"], "explain": "Il traffico è a raffica: la condivisione on-demand serve molti più utenti della prenotazione. Il prezzo sono code e possibili perdite.", "points": null, "code": null}, {"id": "ch1-16", "ch": "ch1", "fmt": "mc", "q": "Scendendo dall'applicazione, qual è l'ordine corretto dei nomi dell'unità dati?", "correct": 2, "opts": ["Frame, datagramma, segmento, messaggio", "Pacchetto, segmento, frame, bit", "Messaggio, segmento, datagramma, frame", "Datagramma, frame, messaggio, segmento"], "explain": "Catena dell'incapsulamento da recitare a memoria.", "points": null, "code": null}, {"id": "ch1-17", "ch": "ch1", "fmt": "mc", "q": "Cosa rende variabile nel tempo il ritardo di accodamento?", "correct": 3, "opts": ["La lunghezza del cavo", "La velocità della luce", "Il numero di livelli OSI", "Il livello di congestione/traffico"], "explain": "Dipende da quanto traffico converge sul collegamento (La/R).", "points": null, "code": null}, {"id": "ch1-18", "ch": "ch1", "fmt": "mc", "q": "Quale attacco rende un servizio indisponibile sommergendolo di traffico?", "correct": 3, "opts": ["Sniffing", "Caching", "Spoofing", "DoS/DDoS"], "explain": "Denial of Service: si esauriscono le risorse del bersaglio con traffico fasullo.", "points": null, "code": null}, {"id": "ch1-19", "ch": "ch1", "fmt": "mc", "q": "Un pacchetto di 8000 bit viene trasmesso su un link a 1 Mbps (10^6 bps). Ritardo di trasmissione?", "correct": 2, "opts": ["125 µs", "8 s", "8 ms", "80 ms"], "explain": "L/R = 8000 / 1.000.000 = 0,008 s = 8 ms.", "points": null, "code": null}, {"id": "ch1-20", "ch": "ch1", "fmt": "mc", "q": "Throughput end-to-end di tre link in serie a 10, 2 e 8 Mbps?", "correct": 2, "opts": ["20 Mbps", "10 Mbps", "2 Mbps", "8 Mbps"], "explain": "Lo determina il collo di bottiglia: il link più lento, 2 Mbps.", "points": null, "code": null}, {"id": "ch1-21", "ch": "ch1", "fmt": "open", "q": "Spiega la differenza tra commutazione di pacchetto e di circuito, e perché Internet ha scelto la prima.", "correct": null, "opts": null, "explain": "", "points": ["Circuito: risorse riservate lungo il percorso (FDM/TDM), prestazione garantita ma sprecata se inattivo, richiede call setup.", "Pacchetto: store-and-forward, multiplexing statistico, nessuna prenotazione, possibili code e perdite, servono protocolli per affidabilità/congestione.", "Internet sceglie il pacchetto perché il traffico è bursty: la condivisione on-demand serve molti più utenti a parità di banda."], "code": null}, {"id": "ch1-22", "ch": "ch1", "fmt": "open", "q": "Elenca e descrivi i quattro componenti del ritardo nodale, indicando da cosa dipende ciascuno.", "correct": null, "opts": null, "explain": "", "points": ["Elaborazione: esame dell'header e scelta dell'uscita; tipicamente < µs.", "Accodamento: attesa in coda; varia con la congestione, misurata da La/R.", "Trasmissione = L/R: dipende da lunghezza pacchetto e velocità del link.", "Propagazione = d/s: dipende dalla distanza fisica e dalla velocità di propagazione.", "Trappola: non confondere trasmissione (spingere i bit) e propagazione (i bit che viaggiano)."], "code": null}, {"id": "ch2-01", "ch": "ch2", "fmt": "vf", "q": "HTTP mantiene lo stato delle richieste precedenti del client (è stateful).", "correct": false, "opts": null, "explain": "Falso. HTTP è stateless: ogni richiesta è indipendente. Lo stato si mantiene con i cookie.", "points": null, "code": null}, {"id": "ch2-02", "ch": "ch2", "fmt": "vf", "q": "In HTTP non persistente serve una connessione TCP separata per ogni oggetto.", "correct": true, "opts": null, "explain": "Vero. Una connessione per oggetto → ~2 RTT per oggetto. Il persistente riusa la connessione.", "points": null, "code": null}, {"id": "ch2-03", "ch": "ch2", "fmt": "vf", "q": "HTTP persistente riduce il numero di RTT riusando la stessa connessione TCP per più oggetti.", "correct": true, "opts": null, "explain": "Vero. È il vantaggio principale di HTTP/1.1 persistente.", "points": null, "code": null}, {"id": "ch2-04", "ch": "ch2", "fmt": "vf", "q": "I cookie servono a mantenere stato applicativo nonostante HTTP sia senza stato.", "correct": true, "opts": null, "explain": "Vero. Set-Cookie nella risposta, il browser lo rispedisce: abilita sessioni, carrelli, profilazione.", "points": null, "code": null}, {"id": "ch2-05", "ch": "ch2", "fmt": "vf", "q": "SMTP è un protocollo 'pull' (il client preleva i messaggi dal server).", "correct": false, "opts": null, "explain": "Falso. SMTP è 'push' (spinge i messaggi verso il server del destinatario). Il prelievo si fa con IMAP/web.", "points": null, "code": null}, {"id": "ch2-06", "ch": "ch2", "fmt": "vf", "q": "Il DNS è centralizzato in un unico grande server per garantire coerenza.", "correct": false, "opts": null, "explain": "Falso. È distribuito e gerarchico: un singolo server sarebbe SPOF, collo di bottiglia e lontano dagli utenti.", "points": null, "code": null}, {"id": "ch2-07", "ch": "ch2", "fmt": "vf", "q": "In una query DNS iterativa il server contattato risponde indicando il prossimo server da interrogare.", "correct": true, "opts": null, "explain": "Vero. 'Non lo so, chiedi a quest'altro server'. Nella ricorsiva il server si fa carico di risolvere tutto.", "points": null, "code": null}, {"id": "ch2-08", "ch": "ch2", "fmt": "vf", "q": "Il caching DNS riduce il carico sui root server.", "correct": true, "opts": null, "explain": "Vero. I resolver memorizzano le risposte (TTL): i root vengono interrogati molto raramente.", "points": null, "code": null}, {"id": "ch2-09", "ch": "ch2", "fmt": "vf", "q": "Il DNS utilizza prevalentemente TCP sulla porta 53.", "correct": false, "opts": null, "explain": "Falso. Usa prevalentemente UDP sulla 53: una query, una risposta, leggerezza prima dell'affidabilità.", "points": null, "code": null}, {"id": "ch2-10", "ch": "ch2", "fmt": "vf", "q": "In BitTorrent la strategia tit-for-tat premia con più banda i peer che ricambiano caricando.", "correct": true, "opts": null, "explain": "Vero. Scoraggia il free-riding; la selezione dei chunk segue invece il rarest-first.", "points": null, "code": null}, {"id": "ch2-11", "ch": "ch2", "fmt": "vf", "q": "Nell'architettura P2P ogni nuovo peer aggiunge capacità di upload al sistema (auto-scalabilità).", "correct": true, "opts": null, "explain": "Vero. È la proprietà chiave del P2P: più utenti → più banda totale.", "points": null, "code": null}, {"id": "ch2-12", "ch": "ch2", "fmt": "vf", "q": "Nello streaming DASH è il server a decidere il bitrate da inviare al client.", "correct": false, "opts": null, "explain": "Falso. L'intelligenza è nel client: misura la banda e sceglie il bitrate dei segmenti dal manifest.", "points": null, "code": null}, {"id": "ch2-13", "ch": "ch2", "fmt": "vf", "q": "Una CDN passa al paradigma P2P per distribuire i contenuti.", "correct": false, "opts": null, "explain": "Falso. La CDN resta logicamente centralizzata: replica/cache vicino agli utenti e reindirizza (spesso via DNS).", "points": null, "code": null}, {"id": "ch2-14", "ch": "ch2", "fmt": "vf", "q": "La GET condizionale (If-Modified-Since) evita di ritrasmettere un oggetto se la copia in cache è aggiornata (risposta 304).", "correct": true, "opts": null, "explain": "Vero. Se non è cambiato, il server risponde 304 Not Modified senza rispedire l'oggetto.", "points": null, "code": null}, {"id": "ch2-15", "ch": "ch2", "fmt": "mc", "q": "Quale porta usa di default HTTP (non cifrato)?", "correct": 0, "opts": ["80", "25", "443", "53"], "explain": "HTTP: 80. HTTPS (TLS): 443. SMTP: 25. DNS: 53.", "points": null, "code": null}, {"id": "ch2-16", "ch": "ch2", "fmt": "mc", "q": "Qual è il limite strutturale principale dell'architettura client-server pura?", "correct": 2, "opts": ["Richiede troppe porte", "Non funziona su Internet", "Capacità centralizzata: il server è collo di bottiglia/SPOF", "Non supporta TCP"], "explain": "La capacità è concentrata sul server; all'aumentare dei client diventa il collo di bottiglia ed è un single point of failure.", "points": null, "code": null}, {"id": "ch2-17", "ch": "ch2", "fmt": "mc", "q": "In HTTP non persistente, quanti RTT (circa) servono per ogni oggetto, escluso il tempo di trasmissione?", "correct": 3, "opts": ["3", "1", "0", "2 (uno per la connessione, uno per richiesta/risposta)"], "explain": "Setup TCP (1 RTT) + richiesta/prima parte risposta (1 RTT).", "points": null, "code": null}, {"id": "ch2-18", "ch": "ch2", "fmt": "mc", "q": "Quale record DNS mappa un nome host nel suo indirizzo IPv4?", "correct": 3, "opts": ["CNAME", "NS", "MX", "A"], "explain": "A = nome→IPv4. AAAA = IPv6. NS = server dei nomi. CNAME = alias. MX = server di posta.", "points": null, "code": null}, {"id": "ch2-19", "ch": "ch2", "fmt": "mc", "q": "Cosa fa un proxy / web cache?", "correct": 2, "opts": ["Instrada i pacchetti", "Cifra il traffico", "Memorizza copie vicino agli utenti per ridurre traffico e latenza", "Traduce nomi in IP"], "explain": "Agisce da client verso l'origine e da server verso il client; riduce il traffico sul link d'accesso.", "points": null, "code": null}, {"id": "ch2-20", "ch": "ch2", "fmt": "mc", "q": "In una query DNS ricorsiva, il carico della risoluzione ricade su:", "correct": 3, "opts": ["Solo il root server", "Il browser", "Il client", "Il server contattato, che risolve per intero"], "explain": "La ricorsiva sposta l'onere sul server contattato; carica molto i livelli alti della gerarchia.", "points": null, "code": null}, {"id": "ch2-21", "ch": "ch2", "fmt": "mc", "q": "Perché HTTP/3 abbandona TCP a favore di QUIC (UDP)?", "correct": 0, "opts": ["Evita l'head-of-line blocking di trasporto e velocizza l'handshake", "Perché UDP è affidabile", "Per eliminare i cookie", "Per usare la porta 80"], "explain": "QUIC fonde handshake e cifratura e gestisce flussi paralleli senza HOL blocking.", "points": null, "code": null}, {"id": "ch2-22", "ch": "ch2", "fmt": "mc", "q": "Una pagina ha 1 file base + 10 immagini. Con HTTP non persistente e senza connessioni parallele (2 RTT/oggetto), quanti RTT per setup+richieste?", "correct": 1, "opts": ["20", "22 (2 × 11 oggetti)", "2", "11"], "explain": "11 oggetti totali × 2 RTT = 22 RTT (escluso il tempo di trasmissione).", "points": null, "code": null}, {"id": "ch2-23", "ch": "ch2", "fmt": "open", "q": "Confronta Client-Server e P2P. Quali criticità affronta un 'Mega-Server' (Netflix/YouTube) e come si inseriscono le CDN?", "correct": null, "opts": null, "explain": "", "points": ["Client-Server: host sempre attivo con IP fisso e noto; i client comunicano solo col server; capacità centralizzata → collo di bottiglia all'aumentare dei client.", "P2P: i peer agiscono da client e server insieme; auto-scalabilità (ogni peer aggiunge upload).", "Criticità del Mega-Server: Single Point of Failure; congestione/saturazione dei link ISP vicini; latenza e buffering per i client lontani; costi e inefficienza dell'infrastruttura.", "CDN (contesto logico): replica/caching del contenuto su server geograficamente dislocati + reindirizzamento (spesso via DNS) al server più vicino o meno carico.", "CDN (contesto topologico): il contenuto resta logicamente centralizzato ma la topologia è distribuita, avvicinandolo al bordo della rete."], "code": null}, {"id": "ch2-24", "ch": "ch2", "fmt": "open", "q": "Perché il DNS è un database distribuito e gerarchico? Differenza tra query iterativa e ricorsiva.", "correct": null, "opts": null, "explain": "", "points": ["Distribuito/gerarchico perché un singolo server sarebbe SPOF, collo di bottiglia, costoso da mantenere e lontano da molti utenti.", "Gerarchia: root → TLD (.it, .com) → autoritativi; più il resolver DNS locale che interroga per conto dell'host.", "Iterativa: il server contattato risponde indicando il prossimo server da contattare.", "Ricorsiva: il server contattato si fa carico di risolvere completamente il nome.", "Il caching dei resolver riduce drasticamente il carico, specie sui root."], "code": null}, {"id": "ch2-25", "ch": "ch2", "fmt": "open", "q": "Spiega HTTP persistente vs non persistente e l'impatto sugli RTT.", "correct": null, "opts": null, "explain": "", "points": ["Non persistente: una connessione TCP per oggetto → ~2 RTT per oggetto (setup + richiesta/risposta) + overhead del SO.", "Persistente (HTTP/1.1): la connessione resta aperta e serve più oggetti → meno RTT.", "HTTP/2 multiplexa più richieste su una connessione per attenuare l'head-of-line blocking applicativo; HTTP/3 lo risolve anche a livello di trasporto con QUIC."], "code": null}, {"id": "ch3-01", "ch": "ch3", "fmt": "vf", "q": "Il demultiplexing UDP usa solo (IP destinazione, porta destinazione).", "correct": true, "opts": null, "explain": "Vero. Per questo due segmenti con stessa porta di destinazione ma origine diversa finiscono nello stesso socket.", "points": null, "code": null}, {"id": "ch3-02", "ch": "ch3", "fmt": "vf", "q": "Il demultiplexing TCP usa la quadrupla (IP sorg., porta sorg., IP dest., porta dest.).", "correct": true, "opts": null, "explain": "Vero. Ogni connessione ha il suo socket: è il motivo per cui il server TCP crea un socket nuovo per ogni client.", "points": null, "code": null}, {"id": "ch3-03", "ch": "ch3", "fmt": "vf", "q": "Due segmenti UDP con stessa porta di destinazione ma IP sorgente diverso vengono consegnati a socket diversi.", "correct": false, "opts": null, "explain": "Falso. UDP demultiplexa solo sulla destinazione → stesso socket. È TCP a distinguerli con la quadrupla.", "points": null, "code": null}, {"id": "ch3-04", "ch": "ch3", "fmt": "vf", "q": "UDP effettua un handshake prima di inviare i dati.", "correct": false, "opts": null, "explain": "Falso. UDP è connectionless: nessun handshake, il datagramma parte subito.", "points": null, "code": null}, {"id": "ch3-05", "ch": "ch3", "fmt": "vf", "q": "UDP garantisce la consegna in ordine dei datagrammi.", "correct": false, "opts": null, "explain": "Falso. Nessuna garanzia di consegna né di ordine. L'affidabilità, se serve, si implementa nell'applicazione.", "points": null, "code": null}, {"id": "ch3-06", "ch": "ch3", "fmt": "vf", "q": "Il checksum UDP fornisce un rilevamento d'errore forte e corregge gli errori.", "correct": false, "opts": null, "explain": "Falso. È un rilevamento d'errore debole (somma a complemento a uno) e non corregge nulla.", "points": null, "code": null}, {"id": "ch3-07", "ch": "ch3", "fmt": "vf", "q": "Lo stop-and-wait ha bassa efficienza perché il mittente attende l'ACK prima del pacchetto successivo.", "correct": true, "opts": null, "explain": "Vero. Per quasi tutto l'RTT il link è fermo: utilizzo bassissimo. Da qui il pipelining.", "points": null, "code": null}, {"id": "ch3-08", "ch": "ch3", "fmt": "vf", "q": "In Go-Back-N il ricevitore bufferizza i pacchetti arrivati fuori ordine.", "correct": false, "opts": null, "explain": "Falso. Il ricevitore GBN scarta il fuori ordine e re-invia l'ACK dell'ultimo ricevuto in ordine. È Selective Repeat a bufferizzare.", "points": null, "code": null}, {"id": "ch3-09", "ch": "ch3", "fmt": "vf", "q": "In Go-Back-N gli ACK sono cumulativi.", "correct": true, "opts": null, "explain": "Vero. ACK(n) conferma n e tutti i precedenti.", "points": null, "code": null}, {"id": "ch3-10", "ch": "ch3", "fmt": "vf", "q": "In Go-Back-N, allo scadere del timer il mittente ritrasmette solo il pacchetto perso.", "correct": false, "opts": null, "explain": "Falso. Ritrasmette TUTTI i pacchetti nella finestra (timer unico sul più vecchio non riscontrato). Da qui il nome.", "points": null, "code": null}, {"id": "ch3-11", "ch": "ch3", "fmt": "vf", "q": "In Selective Repeat il ricevitore invia ACK individuali e bufferizza i fuori ordine.", "correct": true, "opts": null, "explain": "Vero. Timer per pacchetto, ritrasmette solo i persi; finestra ≤ metà dello spazio dei numeri di sequenza.", "points": null, "code": null}, {"id": "ch3-12", "ch": "ch3", "fmt": "vf", "q": "In TCP il numero di sequenza indica la posizione nel flusso di byte del primo byte del segmento.", "correct": true, "opts": null, "explain": "Vero. TCP è un flusso di byte; gli ACK sono cumulativi e indicano il prossimo byte atteso.", "points": null, "code": null}, {"id": "ch3-13", "ch": "ch3", "fmt": "vf", "q": "Il fast retransmit di TCP scatta dopo 3 ACK duplicati.", "correct": true, "opts": null, "explain": "Vero. Ritrasmette subito il segmento mancante senza attendere il timeout.", "points": null, "code": null}, {"id": "ch3-14", "ch": "ch3", "fmt": "vf", "q": "Il controllo di flusso protegge la rete dalla congestione.", "correct": false, "opts": null, "explain": "Falso. Il flusso protegge il RICEVITORE (rwnd). La congestione riguarda la RETE (cwnd). Trappola ricorrente.", "points": null, "code": null}, {"id": "ch3-15", "ch": "ch3", "fmt": "vf", "q": "Nello slow start la finestra di congestione cresce in modo lineare.", "correct": false, "opts": null, "explain": "Falso. Cresce esponenzialmente (raddoppia ogni RTT) fino a ssthresh; poi diventa lineare (congestion avoidance).", "points": null, "code": null}, {"id": "ch3-16", "ch": "ch3", "fmt": "vf", "q": "Il three-way handshake serve a sincronizzare i numeri di sequenza iniziali di entrambe le parti.", "correct": true, "opts": null, "explain": "Vero. Sincronizza gli ISN nelle due direzioni ed evita connessioni fantasma da vecchi duplicati.", "points": null, "code": null}, {"id": "ch3-17", "ch": "ch3", "fmt": "vf", "q": "QUIC gira sopra UDP e gestisce flussi multipli senza head-of-line blocking.", "correct": true, "opts": null, "explain": "Vero. Fonde handshake e TLS, flussi paralleli, è la base di HTTP/3.", "points": null, "code": null}, {"id": "ch3-18", "ch": "ch3", "fmt": "vf", "q": "In TCP la finestra di ricezione rwnd è annunciata dal mittente.", "correct": false, "opts": null, "explain": "Falso. La annuncia il RICEVITORE (spazio libero nel suo buffer); il mittente non la supera.", "points": null, "code": null}, {"id": "ch3-19", "ch": "ch3", "fmt": "mc", "q": "Cosa identifica univocamente un socket TCP?", "correct": 3, "opts": ["Solo la porta locale", "Il numero di sequenza", "L'indirizzo MAC", "La quadrupla IP/porta sorgente e destinazione"], "explain": "Connection-oriented demultiplexing: 4-tuple.", "points": null, "code": null}, {"id": "ch3-20", "ch": "ch3", "fmt": "mc", "q": "Quale campo NON è presente nell'header UDP?", "correct": 2, "opts": ["Porta sorgente", "Checksum", "Numero di sequenza", "Lunghezza"], "explain": "UDP ha solo porte, lunghezza e checksum. I numeri di sequenza sono di TCP.", "points": null, "code": null}, {"id": "ch3-21", "ch": "ch3", "fmt": "mc", "q": "In Go-Back-N, alla ricezione di ACK(n) il mittente:", "correct": 3, "opts": ["Chiude la connessione", "Scarta la finestra", "Ritrasmette n", "Fa scorrere la base della finestra a n+1"], "explain": "ACK cumulativo: la base avanza e si liberano slot per nuovi invii.", "points": null, "code": null}, {"id": "ch3-22", "ch": "ch3", "fmt": "mc", "q": "Quale relazione evita ambiguità in Selective Repeat?", "correct": 0, "opts": ["Finestra ≤ metà dello spazio dei numeri di sequenza", "Finestra = 1", "Nessuna", "Finestra = spazio dei numeri"], "explain": "Altrimenti il ricevitore non distingue pacchetti nuovi da ritrasmessi.", "points": null, "code": null}, {"id": "ch3-23", "ch": "ch3", "fmt": "mc", "q": "Alla perdita rilevata per timeout, TCP (classico) imposta la finestra di congestione a:", "correct": 0, "opts": ["1 MSS", "rwnd", "Zero", "Metà"], "explain": "Timeout → cwnd = 1 (ripartenza con slow start). 3 ACK duplicati → metà (Reno).", "points": null, "code": null}, {"id": "ch3-24", "ch": "ch3", "fmt": "mc", "q": "Alla perdita rilevata per 3 ACK duplicati, TCP Reno:", "correct": 3, "opts": ["La porta a 1", "Non cambia", "La raddoppia", "Dimezza la finestra"], "explain": "Decremento moltiplicativo: la rete è congestionata ma 'meno grave' del timeout.", "points": null, "code": null}, {"id": "ch3-25", "ch": "ch3", "fmt": "mc", "q": "Cos'è AIMD?", "correct": 2, "opts": ["Solo aumento", "Solo decremento", "Aumento additivo, decremento moltiplicativo", "Aumento moltiplicativo, decremento additivo"], "explain": "Additive Increase / Multiplicative Decrease: il classico 'dente di sega' di TCP.", "points": null, "code": null}, {"id": "ch3-26", "ch": "ch3", "fmt": "mc", "q": "Perché il three-way handshake usa 3 fasi e non 2?", "correct": 1, "opts": ["Per il controllo di flusso", "Per sincronizzare in modo affidabile gli ISN di entrambe le parti ed evitare connessioni fantasma", "Per cifrare", "È una scelta arbitraria"], "explain": "Un 2-way non gestisce ritardi/riordino/duplicati: vecchi SYN potrebbero aprire connessioni fantasma.", "points": null, "code": null}, {"id": "ch3-27", "ch": "ch3", "fmt": "mc", "q": "Quale di questi è un tipico uso di UDP?", "correct": 2, "opts": ["Trasferimento file affidabile", "Posta SMTP", "DNS", "Transazioni bancarie"], "explain": "DNS, streaming/VoIP, gaming, SNMP. Le applicazioni che esigono affidabilità usano TCP.", "points": null, "code": null}, {"id": "ch3-28", "ch": "ch3", "fmt": "mc", "q": "La differenza chiave tra controllo di flusso e di congestione:", "correct": 3, "opts": ["Congestione riguarda il buffer del ricevitore", "Flusso riguarda i router", "Sono identici", "Flusso protegge il ricevitore, congestione protegge la rete"], "explain": "rwnd (ricevitore) vs cwnd (rete). Trappola d'esame frequentissima.", "points": null, "code": null}, {"id": "ch3-29", "ch": "ch3", "fmt": "open", "q": "Spiega il funzionamento del Go-Back-N, lato sender e lato receiver.", "correct": null, "opts": null, "explain": "", "points": ["Protocollo pipelined con finestra scorrevole di dimensione N (più efficiente dello stop-and-wait).", "Sender — dati dall'app: se la finestra non è piena, numera il pacchetto, lo invia, sposta i puntatori; se piena, attende.", "Sender — ACK cumulativo: ACK(n) conferma n e i precedenti → la base scorre a n+1, liberando slot.", "Sender — timeout: timer unico sul pacchetto più vecchio non riscontrato; allo scadere ritrasmette TUTTI i pacchetti nella finestra e riavvia il timer.", "Receiver: semplice, NON bufferizza il fuori ordine; tiene solo il numero di sequenza atteso.", "Receiver — pacchetto atteso: lo consegna, invia ACK, incrementa l'atteso.", "Receiver — fuori ordine/errato: lo scarta e re-invia l'ACK dell'ultimo ricevuto in ordine (ACK duplicato)."], "code": null}, {"id": "ch3-30", "ch": "ch3", "fmt": "open", "q": "Caratteristiche principali di UDP e tre scenari in cui è più idoneo di TCP.", "correct": null, "opts": null, "explain": "", "points": ["Connectionless: nessun handshake preliminare.", "Senza stato: ogni datagramma è gestito in modo indipendente.", "Consegna non affidabile: nessuna garanzia di consegna o ordine, nessun ACK/ritrasmissione.", "Niente controllo di flusso o congestione; header minimo (porte, lunghezza, checksum debole).", "Scenario A — Streaming/VoIP: conta la bassa latenza, un pacchetto perso si ignora.", "Scenario B — DNS: una query, una risposta; se manca, si reinvia (niente connessione).", "Scenario C — Gaming: conta solo lo stato più recente; ritrasmettere un pacchetto vecchio è inutile."], "code": null}, {"id": "ch3-31", "ch": "ch3", "fmt": "open", "q": "Descrivi il controllo di congestione TCP: AIMD, slow start e cosa succede alla perdita.", "correct": null, "opts": null, "explain": "", "points": ["È end-to-end, basato sull'osservazione delle perdite.", "AIMD: aumento additivo (+1 MSS per RTT) finché va bene; decremento moltiplicativo (dimezza) alla perdita.", "Slow start: crescita esponenziale (raddoppia ogni RTT) fino alla soglia ssthresh.", "Poi congestion avoidance: crescita lineare.", "Perdita per timeout → cwnd = 1; per 3 ACK duplicati → cwnd dimezzata (Reno).", "Estensioni: CUBIC (link veloci), ECN (router marcano invece di scartare), fairness ~ R/K."], "code": null}, {"id": "ch3-32", "ch": "ch3", "fmt": "open", "q": "Un ricevitore Go-Back-N ha ricevuto in ordine fino al pacchetto 4; poi arriva il pacchetto 6 (manca il 5). Cosa fa e quale ACK invia?", "correct": null, "opts": null, "explain": "", "points": ["Scarta il pacchetto 6 (GBN non bufferizza il fuori ordine).", "Re-invia l'ACK del pacchetto 4 (l'ultimo ricevuto correttamente in ordine).", "Questo ACK duplicato dice al mittente fin dove è arrivato; alla scadenza del timer il mittente ritrasmetterà dal 5 in poi."], "code": null}, {"id": "ch4-01", "ch": "ch4", "fmt": "vf", "q": "Il forwarding è un'azione locale del singolo router; il routing è un processo globale.", "correct": true, "opts": null, "explain": "Vero. Forwarding = input→output di un router (data plane); routing = calcolo dei percorsi (control plane).", "points": null, "code": null}, {"id": "ch4-02", "ch": "ch4", "fmt": "vf", "q": "Internet offre un servizio di rete best-effort, senza garanzie di consegna o ritardo.", "correct": true, "opts": null, "explain": "Vero. Nessuna garanzia di banda, perdita, ordine o ritardo a livello di rete.", "points": null, "code": null}, {"id": "ch4-03", "ch": "ch4", "fmt": "vf", "q": "Il longest prefix matching sceglie la voce con il prefisso corrispondente più lungo (più specifico).", "correct": true, "opts": null, "explain": "Vero. A parità di più corrispondenze vince la più specifica.", "points": null, "code": null}, {"id": "ch4-04", "ch": "ch4", "fmt": "vf", "q": "Il TTL del datagramma IP viene incrementato a ogni hop.", "correct": false, "opts": null, "explain": "Falso. Viene DECREMENTATO: a zero il pacchetto è scartato. Serve a evitare i loop infiniti.", "points": null, "code": null}, {"id": "ch4-05", "ch": "ch4", "fmt": "vf", "q": "La frammentazione IP viene riassemblata a ogni router intermedio.", "correct": false, "opts": null, "explain": "Falso. Il riassemblaggio avviene solo a destinazione.", "points": null, "code": null}, {"id": "ch4-06", "ch": "ch4", "fmt": "vf", "q": "Una subnet è un insieme di interfacce che si raggiungono senza attraversare un router.", "correct": true, "opts": null, "explain": "Vero. Condividono lo stesso prefisso di rete.", "points": null, "code": null}, {"id": "ch4-07", "ch": "ch4", "fmt": "vf", "q": "Nel subnetting si rubano bit alla parte host per creare l'identificativo di sottorete.", "correct": true, "opts": null, "explain": "Vero. Si sposta il confine rete/host: più bit di prefisso, più sottoreti.", "points": null, "code": null}, {"id": "ch4-08", "ch": "ch4", "fmt": "vf", "q": "Con un prefisso più lungo (/x maggiore) si hanno più sottoreti ma meno host per sottorete.", "correct": true, "opts": null, "explain": "Vero. Più bit al prefisso = meno bit per gli host.", "points": null, "code": null}, {"id": "ch4-09", "ch": "ch4", "fmt": "vf", "q": "Il NAT riscrive l'IP sorgente e la porta dei datagrammi in uscita e mantiene una tabella di traduzione.", "correct": true, "opts": null, "explain": "Vero. Molti dispositivi privati condividono un IP pubblico; la tabella smista le risposte.", "points": null, "code": null}, {"id": "ch4-10", "ch": "ch4", "fmt": "vf", "q": "IPv6 usa indirizzi a 64 bit.", "correct": false, "opts": null, "explain": "Falso. IPv6 usa 128 bit (IPv4 ne usa 32).", "points": null, "code": null}, {"id": "ch4-11", "ch": "ch4", "fmt": "vf", "q": "I router IPv6 frammentano i datagrammi troppo grandi lungo il percorso.", "correct": false, "opts": null, "explain": "Falso. IPv6 non prevede frammentazione nei router intermedi; header fisso e semplificato (niente checksum).", "points": null, "code": null}, {"id": "ch4-12", "ch": "ch4", "fmt": "vf", "q": "Il DHCP fornisce solo l'indirizzo IP, niente altro.", "correct": false, "opts": null, "explain": "Falso. Fornisce anche maschera di sottorete, gateway predefinito e indirizzo del server DNS.", "points": null, "code": null}, {"id": "ch4-13", "ch": "ch4", "fmt": "vf", "q": "L'inoltro generalizzato (OpenFlow) basa l'azione su più campi dell'header (match+action).", "correct": true, "opts": null, "explain": "Vero. Confronta campi di livello collegamento/rete/trasporto ed esegue forward/drop/modify.", "points": null, "code": null}, {"id": "ch4-14", "ch": "ch4", "fmt": "vf", "q": "L'indirizzamento gerarchico permette l'aggregazione delle rotte.", "correct": true, "opts": null, "explain": "Vero. Un ISP annuncia un unico prefisso che riassume molti blocchi dei clienti.", "points": null, "code": null}, {"id": "ch4-15", "ch": "ch4", "fmt": "mc", "q": "A cosa serve il TTL nel datagramma IP?", "correct": 2, "opts": ["Misurare la banda", "Frammentare", "Evitare che i pacchetti circolino all'infinito", "Cifrare"], "explain": "Decrementato a ogni hop; a zero il pacchetto viene scartato (e si genera un ICMP, sfruttato da traceroute).", "points": null, "code": null}, {"id": "ch4-16", "ch": "ch4", "fmt": "mc", "q": "Quale di questi è un blocco di indirizzi privati?", "correct": 2, "opts": ["1.1.1.0/24", "8.8.8.0/24", "192.168.0.0/16", "200.23.16.0/20"], "explain": "Blocchi privati: 10/8, 172.16/12, 192.168/16. Gli altri sono indirizzi pubblici.", "points": null, "code": null}, {"id": "ch4-17", "ch": "ch4", "fmt": "mc", "q": "Con un prefisso /26, quanti indirizzi host assegnabili ci sono per sottorete?", "correct": 1, "opts": ["254", "62 (2^6 − 2)", "30", "64"], "explain": "32−26 = 6 bit host → 2^6 = 64 indirizzi − 2 (rete e broadcast) = 62.", "points": null, "code": null}, {"id": "ch4-18", "ch": "ch4", "fmt": "mc", "q": "Cosa indica la /x nella notazione CIDR a.b.c.d/x?", "correct": 0, "opts": ["Il numero di bit del prefisso di rete", "La versione IP", "Il numero di router", "Il numero di host"], "explain": "x = bit del prefisso; restano 32−x bit per gli host.", "points": null, "code": null}, {"id": "ch4-19", "ch": "ch4", "fmt": "mc", "q": "Quale struttura trasferisce i pacchetti dalle porte di input a quelle di output in un router?", "correct": 2, "opts": ["Il TTL", "Il checksum", "La switching fabric", "La tabella NAT"], "explain": "Realizzata via memoria, bus o crossbar.", "points": null, "code": null}, {"id": "ch4-20", "ch": "ch4", "fmt": "mc", "q": "Cosa NON contiene l'header IPv6 rispetto a IPv4?", "correct": 2, "opts": ["Indirizzo sorgente", "Hop limit", "Checksum e campi di frammentazione", "Indirizzo destinazione"], "explain": "Header semplificato per velocizzare l'elaborazione nei router.", "points": null, "code": null}, {"id": "ch4-21", "ch": "ch4", "fmt": "mc", "q": "Quale politica di scheduling garantisce una banda minima per classe?", "correct": 3, "opts": ["FIFO", "Tail drop", "LIFO", "WFQ"], "explain": "Weighted Fair Queuing: Round Robin generalizzato con pesi per classe.", "points": null, "code": null}, {"id": "ch4-22", "ch": "ch4", "fmt": "mc", "q": "La transizione da IPv4 a IPv6 usa spesso:", "correct": 1, "opts": ["Il NAT", "Il tunneling (IPv6 dentro IPv4)", "Il DNS", "Il checksum"], "explain": "'Pacchetto dentro un pacchetto' per attraversare tratti ancora solo-IPv4.", "points": null, "code": null}, {"id": "ch4-23", "ch": "ch4", "fmt": "mc", "q": "Data la rete 200.23.16.0/20, quanti indirizzi contiene il blocco?", "correct": 0, "opts": ["4096", "1024", "256", "65536"], "explain": "32−20 = 12 bit → 2^12 = 4096 indirizzi.", "points": null, "code": null}, {"id": "ch4-24", "ch": "ch4", "fmt": "mc", "q": "Devi dividere un /24 in 4 sottoreti uguali. Prefisso e host per sottorete?", "correct": 1, "opts": ["/25, 126 host", "/26, 62 host", "/26, 64 host", "/28, 14 host"], "explain": "4 sottoreti = 2 bit in più → /26; host = 2^6 − 2 = 62.", "points": null, "code": null}, {"id": "ch4-25", "ch": "ch4", "fmt": "open", "q": "Cosa sono le subnet? Che impatto hanno sugli indirizzi IP?", "correct": null, "opts": null, "explain": "", "points": ["Una subnet è una partizione logica di una rete IP più grande; il processo è il subnetting.", "Motivazione: evitare lo spreco di indirizzi (es. 500 IP necessari vs blocco da 65k); isolare il traffico per sicurezza/gestione; tabelle di instradamento più efficienti.", "Si creano segmenti più piccoli e gestibili separati da un router.", "Impatto strutturale: cambia l'interpretazione dei 32 bit. Da Network ID + Host ID si 'rubano' bit all'host per creare il Subnet ID.", "La maschera / la notazione CIDR (a.b.c.d/x) fissa il confine: più bit al prefisso = più sottoreti ma meno host ciascuna."], "code": null}, {"id": "ch4-26", "ch": "ch4", "fmt": "open", "q": "Spiega forwarding vs routing e descrivi i componenti principali di un router.", "correct": null, "opts": null, "explain": "", "points": ["Forwarding: azione locale, sposta il pacchetto dalla porta di input a quella di output usando la tabella (longest prefix matching).", "Routing: processo globale, calcola i percorsi end-to-end (è il control plane, capitolo successivo).", "Porte di input: terminazione del collegamento, livello collegamento, lookup.", "Switching fabric: trasferisce i pacchetti verso l'uscita (memoria/bus/crossbar).", "Porte di output: buffer e schedulazione (FIFO, priorità, RR, WFQ).", "Code: HOL blocking in ingresso, perdita per buffer pieno in uscita; servizio best-effort."], "code": null}, {"id": "ch5-01", "ch": "ch5", "fmt": "vf", "q": "Negli algoritmi link-state ogni nodo conosce l'intera topologia della rete.", "correct": true, "opts": null, "explain": "Vero. Tramite flooding dello stato dei collegamenti; poi ognuno calcola i cammini minimi con Dijkstra.", "points": null, "code": null}, {"id": "ch5-02", "ch": "ch5", "fmt": "vf", "q": "L'algoritmo distance-vector si basa sull'equazione di Bellman-Ford.", "correct": true, "opts": null, "explain": "Vero. Programmazione dinamica: ogni nodo aggiorna le stime usando i vettori dei vicini.", "points": null, "code": null}, {"id": "ch5-03", "ch": "ch5", "fmt": "vf", "q": "Nel distance-vector ogni nodo conosce solo il costo verso i vicini diretti e scambia il proprio vettore con loro.", "correct": true, "opts": null, "explain": "Vero. Iterativo, asincrono, self-stopping.", "points": null, "code": null}, {"id": "ch5-04", "ch": "ch5", "fmt": "vf", "q": "Il problema del count-to-infinity riguarda gli algoritmi link-state.", "correct": false, "opts": null, "explain": "Falso. Riguarda il distance-vector ('le cattive notizie viaggiano lente'). Mitigazioni: poisoned reverse.", "points": null, "code": null}, {"id": "ch5-05", "ch": "ch5", "fmt": "vf", "q": "OSPF è un protocollo di tipo link-state (usa Dijkstra).", "correct": true, "opts": null, "explain": "Vero. Floods link-state advertisements direttamente su IP; organizzato in aree.", "points": null, "code": null}, {"id": "ch5-06", "ch": "ch5", "fmt": "vf", "q": "BGP è il protocollo di instradamento inter-AS (tra sistemi autonomi).", "correct": true, "opts": null, "explain": "Vero. È 'la colla che tiene insieme Internet'.", "points": null, "code": null}, {"id": "ch5-07", "ch": "ch5", "fmt": "vf", "q": "Le decisioni di BGP sono guidate solo dal costo minimo, mai da politiche.", "correct": false, "opts": null, "explain": "Falso. BGP è policy-based: contano gli accordi commerciali, non solo il numero di hop.", "points": null, "code": null}, {"id": "ch5-08", "ch": "ch5", "fmt": "vf", "q": "L'attributo AS-PATH di BGP serve anche a rilevare i loop.", "correct": true, "opts": null, "explain": "Vero. È la lista di AS attraversati; se il proprio AS compare già, c'è un loop.", "points": null, "code": null}, {"id": "ch5-09", "ch": "ch5", "fmt": "vf", "q": "Nell'hot-potato routing un AS sceglie l'uscita con il minimo costo intra-dominio per liberarsi presto del traffico.", "correct": true, "opts": null, "explain": "Vero. 'Patata bollente': si scarica il traffico il prima possibile, ignorando il costo inter-dominio.", "points": null, "code": null}, {"id": "ch5-10", "ch": "ch5", "fmt": "vf", "q": "Nell'SDN il piano di controllo è distribuito su ogni router, come nell'approccio tradizionale.", "correct": false, "opts": null, "explain": "Falso. L'SDN usa un controller logicamente centralizzato con visione globale.", "points": null, "code": null}, {"id": "ch5-11", "ch": "ch5", "fmt": "vf", "q": "Dijkstra ha complessità O(n^2) con n nodi, migliorabile a O(n log n).", "correct": true, "opts": null, "explain": "Vero. Ad ogni iterazione cerca il minimo non ancora incluso; ~n(n+1)/2 confronti.", "points": null, "code": null}, {"id": "ch5-12", "ch": "ch5", "fmt": "vf", "q": "ICMP è usato da ping (echo) e da traceroute (TTL scaduto).", "correct": true, "opts": null, "explain": "Vero. Trasporta messaggi di controllo/errore incapsulati in datagrammi IP.", "points": null, "code": null}, {"id": "ch5-13", "ch": "ch5", "fmt": "mc", "q": "Differenza chiave tra link-state e distance-vector:", "correct": 3, "opts": ["DV usa Dijkstra", "Sono identici", "LS è decentralizzato", "LS: ogni nodo ha la topologia completa e calcola (Dijkstra); DV: gossip tra vicini (Bellman-Ford)"], "explain": "Mappa completa in mano a tutti vs voce passata tra vicini che converge.", "points": null, "code": null}, {"id": "ch5-14", "ch": "ch5", "fmt": "mc", "q": "Perché si usano protocolli diversi intra-AS e inter-AS?", "correct": 2, "opts": ["Non c'è motivo", "Per usare TCP", "Intra: prestazioni; inter: politica, scalabilità, autonomia", "Per il NAT"], "explain": "Dentro un AS conta la performance; tra AS contano gli accordi commerciali e la scala.", "points": null, "code": null}, {"id": "ch5-15", "ch": "ch5", "fmt": "mc", "q": "Quali sono due attributi importanti di una rotta BGP?", "correct": 2, "opts": ["rwnd e cwnd", "TTL e checksum", "AS-PATH e NEXT-HOP", "SYN e ACK"], "explain": "AS-PATH = sequenza di AS (anche anti-loop); NEXT-HOP = router interno verso l'AS successivo.", "points": null, "code": null}, {"id": "ch5-16", "ch": "ch5", "fmt": "mc", "q": "Cosa fa il controller in una rete SDN?", "correct": 3, "opts": ["Risolve i nomi DNS", "Inoltra i pacchetti", "Fa NAT", "Ha la visione globale e calcola/installa le tabelle di inoltro (via OpenFlow)"], "explain": "Gli switch diventano 'stupidi' ed eseguono; il cervello è il controller centralizzato.", "points": null, "code": null}, {"id": "ch5-17", "ch": "ch5", "fmt": "mc", "q": "OSPF distribuisce le informazioni di stato dei collegamenti tramite:", "correct": 1, "opts": ["DHCP", "Flooding (link-state advertisements)", "DNS", "Scambio col solo vicino"], "explain": "Ogni router inonda l'intero AS con lo stato dei propri collegamenti.", "points": null, "code": null}, {"id": "ch5-18", "ch": "ch5", "fmt": "mc", "q": "Quale problema affligge il distance-vector quando un collegamento si guasta?", "correct": 1, "opts": ["Head-of-line blocking", "Count-to-infinity (le cattive notizie viaggiano lente)", "Spoofing", "Frammentazione"], "explain": "Le stime cattive si propagano lentamente; mitigato (parzialmente) dalla poisoned reverse.", "points": null, "code": null}, {"id": "ch5-19", "ch": "ch5", "fmt": "mc", "q": "eBGP e iBGP indicano rispettivamente sessioni:", "correct": 1, "opts": ["TCP / UDP", "Tra AS diversi / dentro lo stesso AS", "Client / server", "Dentro / tra"], "explain": "eBGP = esterne (tra AS); iBGP = interne (entro l'AS).", "points": null, "code": null}, {"id": "ch5-20", "ch": "ch5", "fmt": "mc", "q": "Il protocollo OpenFlow opera tra:", "correct": 3, "opts": ["Router e NAT", "Due host", "Client e DNS", "Controller e switch (su TCP)"], "explain": "Messaggi controller↔switch su TCP (cifratura opzionale).", "points": null, "code": null}, {"id": "ch5-21", "ch": "ch5", "fmt": "open", "q": "Confronta gli algoritmi link-state e distance-vector (conoscenza, calcolo, problemi).", "correct": null, "opts": null, "explain": "", "points": ["Link-state (Dijkstra): conoscenza globale via flooding → ogni nodo ha la topologia completa e calcola i cammini minimi; O(n^2) (o O(n log n)); possibili oscillazioni se i costi dipendono dal traffico.", "Distance-vector (Bellman-Ford): conoscenza decentralizzata; ogni nodo conosce solo i vicini, mantiene un vettore delle distanze e lo scambia coi vicini; iterativo e self-stopping.", "Problema del distance-vector: count-to-infinity (le cattive notizie viaggiano lente); poisoned reverse aiuta in parte.", "Immagine: tutti hanno la mappa (LS) vs gossip tra vicini che converge (DV)."], "code": null}, {"id": "ch5-22", "ch": "ch5", "fmt": "open", "q": "Perché Internet separa instradamento intra-AS e inter-AS, e cosa fa BGP?", "correct": null, "opts": null, "explain": "", "points": ["Scala: gerarchia in AS → tabelle più piccole, meno traffico di aggiornamento.", "Autonomia amministrativa: ogni AS gestisce la propria rete.", "Politica vs prestazioni: dentro l'AS si ottimizza la performance (OSPF, link-state); tra AS contano le politiche commerciali (BGP).", "BGP: protocollo a vettore di percorso, annuncia rotte con AS-PATH (anche anti-loop) e NEXT-HOP, decide per policy; hot-potato per scaricare presto il traffico."], "code": null}, {"id": "lab-01", "ch": "lab", "fmt": "vf", "q": "In socket() il tipo SOCK_STREAM corrisponde a TCP e SOCK_DGRAM a UDP.", "correct": true, "opts": null, "explain": "Vero. È l'interruttore che sceglie il protocollo.", "points": null, "code": null}, {"id": "lab-02", "ch": "lab", "fmt": "vf", "q": "Il client TCP deve chiamare bind() per scegliere la propria porta.", "correct": false, "opts": null, "explain": "Falso. Il SO assegna automaticamente una porta effimera; il client non fa bind.", "points": null, "code": null}, {"id": "lab-03", "ch": "lab", "fmt": "vf", "q": "accept() su un server TCP restituisce un nuovo socket dedicato alla connessione con quel client.", "correct": true, "opts": null, "explain": "Vero. Il socket 'padre' resta in ascolto; il 'figlio' gestisce quel client.", "points": null, "code": null}, {"id": "lab-04", "ch": "lab", "fmt": "vf", "q": "Il socket in ascolto e il socket figlio sono lo stesso descrittore.", "correct": false, "opts": null, "explain": "Falso. Sono due descrittori distinti: uno ascolta, l'altro parla con il client.", "points": null, "code": null}, {"id": "lab-05", "ch": "lab", "fmt": "vf", "q": "htons/htonl convertono da host a network byte order, da usare prima di inviare in rete.", "correct": true, "opts": null, "explain": "Vero. ntohs/ntohl fanno il contrario in ricezione. La rete è big-endian.", "points": null, "code": null}, {"id": "lab-06", "ch": "lab", "fmt": "vf", "q": "La rete usa il little-endian come network byte order.", "correct": false, "opts": null, "explain": "Falso. Il network byte order è big-endian.", "points": null, "code": null}, {"id": "lab-07", "ch": "lab", "fmt": "vf", "q": "In UDP si usano sendto()/recvfrom(), che trasportano l'indirizzo del peer a ogni chiamata.", "correct": true, "opts": null, "explain": "Vero. Essendo connectionless, non c'è uno stato che ricordi il peer.", "points": null, "code": null}, {"id": "lab-08", "ch": "lab", "fmt": "vf", "q": "In UDP il server usa listen() e accept() come in TCP.", "correct": false, "opts": null, "explain": "Falso. Niente listen/accept: UDP è connectionless. Il server fa socket → bind → recvfrom/sendto.", "points": null, "code": null}, {"id": "lab-09", "ch": "lab", "fmt": "vf", "q": "Con un socket UDP non connesso, inviare a un server inesistente fa fallire subito la sendto().", "correct": false, "opts": null, "explain": "Falso. La sendto riesce in silenzio; la recvfrom successiva resta bloccata per sempre.", "points": null, "code": null}, {"id": "lab-10", "ch": "lab", "fmt": "vf", "q": "Con un socket UDP connesso (connect()), inviare a un server inesistente fa fallire la read() (ECONNREFUSED).", "correct": true, "opts": null, "explain": "Vero. L'ICMP 'port unreachable' viene recapitato al socket connesso. È il punto dell'assignment.", "points": null, "code": null}, {"id": "lab-11", "ch": "lab", "fmt": "vf", "q": "connect() su un socket UDP stabilisce una connessione affidabile come TCP.", "correct": false, "opts": null, "explain": "Falso. Fissa solo un peer di default: nessuna affidabilità, ordine o controllo. Trappola.", "points": null, "code": null}, {"id": "lab-12", "ch": "lab", "fmt": "vf", "q": "read() su un socket TCP può restituire meno byte di quelli richiesti.", "correct": true, "opts": null, "explain": "Vero. TCP è un flusso di byte senza confini di messaggio: una read dà ciò che è disponibile in quel momento.", "points": null, "code": null}, {"id": "lab-13", "ch": "lab", "fmt": "mc", "q": "Quale sequenza di chiamate è corretta per un SERVER TCP?", "correct": 2, "opts": ["socket → connect → write → close", "socket → recvfrom → sendto", "socket → bind → listen → accept → read/write → close", "bind → socket → accept"], "explain": "Togli listen e accept fallisce; togli bind e i client non sanno dove trovarti.", "points": null, "code": null}, {"id": "lab-14", "ch": "lab", "fmt": "mc", "q": "Quale sequenza è corretta per un CLIENT TCP?", "correct": 1, "opts": ["connect → socket", "socket → connect → write/read → close", "socket → bind → listen → accept", "socket → recvfrom"], "explain": "Il client apre il socket, si connette (3-way handshake), scambia dati, chiude.", "points": null, "code": null}, {"id": "lab-15", "ch": "lab", "fmt": "mc", "q": "Per passare da TCP a UDP nel codice, cosa cambi in socket()?", "correct": 3, "opts": ["La famiglia AF_INET", "La porta", "Niente", "Il tipo: da SOCK_STREAM a SOCK_DGRAM"], "explain": "È l'unica modifica necessaria a socket().", "points": null, "code": null}, {"id": "lab-16", "ch": "lab", "fmt": "mc", "q": "Perché accept() restituisce un socket diverso da quello in ascolto?", "correct": 3, "opts": ["Per chiudere prima", "Per cifrare", "Per il byte order", "Ogni connessione è identificata dalla quadrupla e il socket in ascolto deve restare libero per nuove connessioni"], "explain": "È il connection-oriented demultiplexing: un socket per connessione.", "points": null, "code": null}, {"id": "lab-17", "ch": "lab", "fmt": "mc", "q": "Cosa fa htons(porta)?", "correct": 3, "opts": ["Risolve il nome", "Legge dal socket", "Apre la connessione", "Converte la porta (16 bit) in network byte order"], "explain": "La porta è uno 'short' a 16 bit → htons. L'indirizzo a 32 bit → htonl.", "points": null, "code": null}, {"id": "lab-18", "ch": "lab", "fmt": "mc", "q": "In UDP, quale chiamata riempie l'indirizzo del mittente del datagramma ricevuto?", "correct": 0, "opts": ["recvfrom()", "listen()", "accept()", "read()"], "explain": "recvfrom riempie la struttura del mittente, così il server può rispondergli con sendto.", "points": null, "code": null}, {"id": "lab-19", "ch": "lab", "fmt": "mc", "q": "Cosa fa memset(buffer, 0, sizeof(buffer)) prima di una read()?", "correct": 0, "opts": ["Azzera il buffer: la stringa risulta terminata da \\0 e senza spazzatura", "Chiude il socket", "Converte il byte order", "Invia i dati"], "explain": "Garantisce un terminatore oltre i byte letti; senza, il buffer conterrebbe valori casuali dallo stack.", "points": null, "code": null}, {"id": "lab-20", "ch": "lab", "fmt": "mc", "q": "Un valore di ritorno 0 da read() su un socket TCP significa:", "correct": 1, "opts": ["Timeout", "La connessione è stata chiusa dall'altro lato", "0 byte ma connessione aperta per sempre", "Errore"], "explain": ">0 byte letti; 0 = chiusura; −1 = errore.", "points": null, "code": null}, {"id": "lab-21", "ch": "lab", "fmt": "code", "q": "Commenta cosa fa questo blocco e perché si controlla il valore di ritorno.", "correct": null, "opts": null, "explain": "", "points": ["bind() lega il socket a IP + porta locali: da qui il socket 'possiede' quella porta.", "Cast a (struct sockaddr *): la funzione vuole il tipo generico, gli passi la versione IPv4.", "Ritorna 0 se ok; ≠0 in caso di errore.", "Errore tipico: porta già occupata (EADDRINUSE) → si chiude il socket e si esce.", "Controllare il ritorno serve a gestire l'errore invece di proseguire su uno stato non valido."], "code": "returnStatus = bind(simpleSocket, (struct sockaddr *)&simpleServer, sizeof(simpleServer));\nif (returnStatus != 0) {\n    fprintf(stderr, \"Could not bind to address!\\n\");\n    close(simpleSocket);\n    exit(1);\n}"}, {"id": "lab-22", "ch": "lab", "fmt": "code", "q": "Spiega cosa succede in questa riga del server TCP.", "correct": null, "opts": null, "explain": "", "points": ["accept() si BLOCCA finché un client non arriva.", "Completa il three-way handshake con quel client.", "Restituisce un NUOVO socket (figlio) dedicato a quella connessione.", "Riempie clientName con l'indirizzo del client (IP e porta).", "Il socket originale (simpleSocket) resta in ascolto per i prossimi client."], "code": "simpleChildSocket = accept(simpleSocket,\n                          (struct sockaddr *)&clientName,\n                          &clientNameLength);"}, {"id": "lab-23", "ch": "lab", "fmt": "code", "q": "Cosa fanno esattamente queste due righe e come collaborano?", "correct": null, "opts": null, "explain": "", "points": ["memset azzera tutti i 256 byte di buffer: niente spazzatura e terminatore garantito.", "read legge dal socket FIGLIO (non da quello in ascolto), al massimo sizeof(buffer) byte.", "read si blocca finché non ci sono dati; ritorna n byte (>0 letti, 0 chiusura, −1 errore).", "Insieme: i byte ricevuti + gli zeri residui formano una stringa C valida per la printf.", "Sottigliezza: read NON termina la stringa; lo fa il memset (o un esplicito buffer[n]='\\0')."], "code": "memset(buffer, '\\0', sizeof(buffer));\nreturnStatus = read(simpleChildSocket, buffer, sizeof(buffer));"}, {"id": "lab-24", "ch": "lab", "fmt": "code", "q": "Perché qui si usano write()/read() invece di sendto()/recvfrom(), e cosa succede se il server non esiste?", "correct": null, "opts": null, "explain": "", "points": ["connect() su un socket UDP NON apre una connessione: fissa solo un peer di default nel kernel.", "Con il peer fissato puoi usare write()/read() senza ripetere l'indirizzo a ogni chiamata.", "Non è TCP: nessuna affidabilità, ordine o controllo di flusso/congestione.", "Verso un server inesistente: l'ICMP 'port unreachable' torna al socket connesso → la read() FALLISCE (ECONNREFUSED).", "Contrasto: con socket NON connesso la sendto riesce in silenzio e la recvfrom resta bloccata."], "code": "connect(simpleSocket, (struct sockaddr*)&simpleServer, sizeof(simpleServer));\nwrite(simpleSocket, buffer, strlen(buffer));\nreturnStatus = read(simpleSocket, buffer, sizeof(buffer));"}];
-const META=[
-  {ch:"ch1",num:"01",nm:"Introduzione",sb:"Architettura e ritardi",tone:"#DDBE73"},
-  {ch:"ch2",num:"02",nm:"Applicativo",sb:"HTTP · DNS · P2P · CDN",tone:"#CBA158"},
-  {ch:"ch3",num:"03",nm:"Trasporto",sb:"UDP · GBN · TCP · congestione",tone:"#B9853F"},
-  {ch:"ch4",num:"04",nm:"Rete · Data plane",sb:"IP · subnet · NAT · router",tone:"#A56A33"},
-  {ch:"ch5",num:"05",nm:"Rete · Control plane",sb:"Dijkstra · BGP · SDN",tone:"#8C552B"},
-  {ch:"lab",num:"06",nm:"Lab · Socket",sb:"TCP/UDP · byte order",tone:"#9A6A2F"},
-];
-const FMT=[["all","Tutti"],["vf","V/F"],["mc","Scelta multipla"],["open","Aperte"],["code","Codice"]];
-const FMTLABEL={vf:"Vero / Falso",mc:"Scelta multipla",open:"Domanda aperta",code:"Codice"};
-
-const S={chapter:"all",fmt:"all",review:false,shuffle:false,idx:0,pool:[],_lastId:null};
-let progress={};
-const KEY="reti_trainer_v1";
-function load(){try{const r=localStorage.getItem(KEY);if(r)progress=JSON.parse(r)||{};}catch(e){}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(progress));}catch(e){}}
-load();
-
-const $=s=>document.querySelector(s);
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function isReview(id){const p=progress[id];return p&&p.answered&&(p.correct===false||p.self==="review"||p.self==="almost");}
-
-function buildPool(){
-  let p=BANK.filter(q=>(S.chapter==="all"||q.ch===S.chapter)&&(S.fmt==="all"||q.fmt===S.fmt));
-  if(S.review) p=p.filter(q=>isReview(q.id));
-  if(S.shuffle) p=shuffle(p);
-  S.pool=p; S.idx=0;
-}
-function chapterStats(ch){const qs=BANK.filter(q=>q.ch===ch);let ans=0,ok=0;
-  qs.forEach(q=>{const pr=progress[q.id];if(pr&&pr.answered){ans++;if(pr.correct)ok++;}});return{tot:qs.length,ans,ok};}
-function overall(){let ans=0,ok=0;BANK.forEach(q=>{const pr=progress[q.id];if(pr&&pr.answered){ans++;if(pr.correct)ok++;}});return{tot:BANK.length,ans,ok};}
-
-function renderStack(){
-  const el=$("#stack"); el.innerHTML="";
-  const o=overall();
-  const all=document.createElement("button");
-  all.className="layer core"+(S.chapter==="all"?" on":"");
-  all.style.setProperty("--tone","var(--signal)");
-  all.innerHTML=`<span class="layer-code">&#931;</span><span><span class="layer-name">Tutto il programma</span>
-    <span class="layer-sub">esame simulato · ${o.tot} domande</span>
-    <span class="layer-gauge"><i style="width:${o.tot?Math.round(o.ans/o.tot*100):0}%"></i></span></span>
-    <span class="layer-stat">${o.ans}/${o.tot}</span>`;
-  all.onclick=()=>{S.chapter="all";buildPool();renderAll();};
-  el.appendChild(all);
-  META.forEach(m=>{
-    const st=chapterStats(m.ch);
-    const b=document.createElement("button");
-    b.className="layer"+(S.chapter===m.ch?" on":"");
-    b.style.setProperty("--tone",m.tone);
-    b.innerHTML=`<span class="layer-code">${m.num}</span><span><span class="layer-name">${m.nm}</span>
-      <span class="layer-sub">${m.sb}</span>
-      <span class="layer-gauge"><i style="width:${st.tot?Math.round(st.ans/st.tot*100):0}%"></i></span></span>
-      <span class="layer-stat">${st.ans}/${st.tot}</span>`;
-    b.onclick=()=>{S.chapter=m.ch;buildPool();renderAll();};
-    el.appendChild(b);
-  });
-}
-function renderChips(){
-  const el=$("#fmtChips"); el.innerHTML="";
-  FMT.forEach(([v,l])=>{const c=document.createElement("button");
-    c.className="seg"+(S.fmt===v?" on":""); c.textContent=l;
-    c.onclick=()=>{S.fmt=v;buildPool();renderAll();}; el.appendChild(c);});
-}
-function renderMeter(){
-  const o=overall();const pct=o.tot?Math.round(o.ans/o.tot*100):0;
-  $("#readyPct").textContent=pct+"%";
-  const arc=document.getElementById("readyArc");
-  if(arc){const C=289.027,L=216.77;arc.style.strokeDashoffset=(C-(pct/100)*L).toFixed(1);}
-}
-
-function setAns(id,correct,extra){progress[id]=Object.assign({answered:true,correct:!!correct},extra||{});
-  save();renderStack();renderMeter();}
-
-function verdictHTML(ok){
-  const mk=ok
-    ?'<svg class="vmark" viewBox="0 0 18 18" fill="none"><path d="M3.5 9.4l3.3 3.5L14.6 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-    :'<svg class="vmark" viewBox="0 0 18 18" fill="none"><path d="M5 5l8 8M13 5l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
-  return `<div class="verdict ${ok?"ok":"no"}">${mk}${ok?"corretto":"sbagliato"}</div>`;
-}
-function escapeHTML(s){return (s==null?"":String(s)).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-
-function renderCard(){
-  const card=$("#card");
-  if(!S.pool.length){
-    card.innerHTML=`<div class="sheet-inner still"><div class="empty"><b>Niente qui</b><span>${S.review?"Nessuna domanda segnata da rivedere con questi filtri. Rispondi a qualche domanda o togli il filtro.":"Nessuna domanda per questa combinazione di filtri."}</span></div></div>`;
-    S._lastId=null; return;
-  }
-  if(S.idx<0)S.idx=0; if(S.idx>=S.pool.length)S.idx=S.pool.length-1;
-  const q=S.pool[S.idx]; const pr=progress[q.id]||{}; const m=META.find(x=>x.ch===q.ch);
-  const fresh=(S._lastId!==q.id); S._lastId=q.id;
-  let h=`<div class="sheet-meta">
-    <span class="meta-code"><b>${m.num}</b> · ${m.nm.toUpperCase()}</span>
-    ${isReview(q.id)?'<span class="meta-badge">da rivedere</span>':''}
-    <span class="meta-fmt">${FMTLABEL[q.fmt]}</span></div>
-    <p class="prompt">${escapeHTML(q.q)}</p>`;
-  if(q.code) h+=`<pre class="snippet">${escapeHTML(q.code)}</pre>`;
-
-  if(q.fmt==="vf"){
-    const a=pr.answered;
-    const cls=v=>{if(!a)return"";if(v===q.correct)return" correct";if(pr.pick===v)return" wrong";return"";};
-    h+=`<div class="choices vf">
-      <button class="choice${cls(true)}" data-v="true" ${a?"disabled":""}><span class="choice-key">V</span>Vero</button>
-      <button class="choice${cls(false)}" data-v="false" ${a?"disabled":""}><span class="choice-key">F</span>Falso</button></div>`;
-    h+=`<div class="feedback${a?" show":""}">${a?verdictHTML(pr.correct)+`<div class="expl">${escapeHTML(q.explain)}</div>`:""}</div>`;
-  } else if(q.fmt==="mc"){
-    const a=pr.answered; const L=["A","B","C","D","E"];
-    h+=`<div class="choices">`;
-    q.opts.forEach((o,i)=>{let c="";if(a){if(i===q.correct)c=" correct";else if(pr.pick===i)c=" wrong";}
-      h+=`<button class="choice${c}" data-i="${i}" ${a?"disabled":""}><span class="choice-key">${L[i]}</span><span>${escapeHTML(o)}</span></button>`;});
-    h+=`</div><div class="feedback${a?" show":""}">${a?verdictHTML(pr.correct)+`<div class="expl">${escapeHTML(q.explain)}</div>`:""}</div>`;
-  } else {
-    if(!pr.revealed){
-      h+=`<button class="reveal" id="revealBtn">Mostra i punti chiave</button>`;
-    }else{
-      h+=`<div class="feedback show">
-        <div class="verdict key"><svg class="vmark" viewBox="0 0 18 18" fill="none"><path d="M7 3.5H4.5v11H7M11 3.5h2.5v11H11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>punti chiave</div>
-        <ul class="keylist">${q.points.map(p=>`<li>${escapeHTML(p)}</li>`).join("")}</ul>
-        <div class="selfgrade">
-          <button class="sg know${pr.self==="know"?" sel":""}" data-s="know">la sapevo</button>
-          <button class="sg almost${pr.self==="almost"?" sel":""}" data-s="almost">quasi</button>
-          <button class="sg review${pr.self==="review"?" sel":""}" data-s="review">da rivedere</button>
-        </div>
-        <div class="selfnote">Le aperte e quelle di codice le valuti tu: l'autovalutazione aggiorna i progressi e il filtro "da rivedere".</div></div>`;
-    }
-  }
-
-  h+=`<div class="pager">
-    <button class="pgbtn" id="prevBtn" ${S.idx===0?"disabled":""}>← indietro</button>
-    <span class="pager-count"><b>${S.idx+1}</b> / ${S.pool.length}</span>
-    <button class="pgbtn" id="nextBtn" ${S.idx===S.pool.length-1?"disabled":""}>avanti →</button></div>`;
-  card.innerHTML=`<div class="sheet-inner${fresh?"":" still"}">${h}</div>`;
-
-  card.querySelectorAll(".choice").forEach(b=>{
-    if(b.dataset.v!==undefined) b.onclick=()=>{const v=b.dataset.v==="true";setAns(q.id,v===q.correct,{pick:v});renderCard();};
-    else if(b.dataset.i!==undefined) b.onclick=()=>{const i=+b.dataset.i;setAns(q.id,i===q.correct,{pick:i});renderCard();};
-  });
-  const rb=card.querySelector("#revealBtn");
-  if(rb) rb.onclick=()=>{progress[q.id]=Object.assign({},progress[q.id],{revealed:true});save();renderCard();};
-  card.querySelectorAll(".sg").forEach(b=>b.onclick=()=>{const s=b.dataset.s;setAns(q.id,s==="know",{revealed:true,self:s});renderCard();});
-  const pv=card.querySelector("#prevBtn"), nx=card.querySelector("#nextBtn");
-  if(pv)pv.onclick=()=>{S.idx--;renderCard();};
-  if(nx)nx.onclick=()=>{S.idx++;renderCard();};
-}
-function renderAll(){renderStack();renderChips();renderMeter();renderCard();}
-
-$("#togReview").onchange=e=>{S.review=e.target.checked;buildPool();renderCard();renderStack();};
-$("#togShuffle").onchange=e=>{S.shuffle=e.target.checked;buildPool();renderCard();};
-$("#resetBtn").onclick=function(){
-  if(!this.classList.contains("confirming")){
-    this.classList.add("confirming");
-    this.dataset.label=this.textContent;
-    this.textContent="sicuro? clicca di nuovo per azzerare";
-    clearTimeout(this._t);
-    this._t=setTimeout(()=>{this.classList.remove("confirming");this.textContent=this.dataset.label;},3000);
-    return;
-  }
-  clearTimeout(this._t);
-  this.classList.remove("confirming");
-  this.textContent=this.dataset.label;
-  progress={};save();
-  $("#togReview").checked=false;$("#togShuffle").checked=false;S.review=false;S.shuffle=false;buildPool();renderAll();
-};
-
-document.addEventListener("keydown",e=>{
-  if(["INPUT","TEXTAREA"].includes(document.activeElement.tagName))return;
-  if(!S.pool.length)return;
-  const q=S.pool[S.idx]; const pr=progress[q.id]||{};
-  if(e.key==="ArrowRight"&&S.idx<S.pool.length-1){S.idx++;renderCard();return;}
-  if(e.key==="ArrowLeft"&&S.idx>0){S.idx--;renderCard();return;}
-  if(q.fmt==="vf"&&!pr.answered){
-    if(e.key==="v"||e.key==="V"){setAns(q.id,true===q.correct,{pick:true});renderCard();}
-    if(e.key==="f"||e.key==="F"){setAns(q.id,false===q.correct,{pick:false});renderCard();}
-  }
-  if(q.fmt==="mc"&&!pr.answered){const i=parseInt(e.key,10)-1;
-    if(i>=0&&i<q.opts.length){setAns(q.id,i===q.correct,{pick:i});renderCard();}}
-  if((q.fmt==="open"||q.fmt==="code")&&!pr.revealed&&(e.key===" "||e.code==="Space")){
-    e.preventDefault();progress[q.id]=Object.assign({},pr,{revealed:true});save();renderCard();}
-});
-
-buildPool(); renderAll();
-
-/* badge -> scorrimento morbido + evidenziazione del riquadro promo */
+/* ---- card materie (dati da subjects.js) ---- */
 (function(){
-  const badge=document.getElementById("promoBadge"), promo=document.getElementById("promo");
-  if(!badge||!promo) return;
-  badge.addEventListener("click",()=>{
-    promo.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"});
-    const card=promo.querySelector(".promo-card");
-    card.classList.remove("flash"); void card.offsetWidth; card.classList.add("flash");
+  const order=["reti","algo2"];   // ordine di visualizzazione
+  const keys=order.filter(k=>SUBJECTS[k]).concat(Object.keys(SUBJECTS).filter(k=>!order.includes(k)));
+  const wrap=document.getElementById("cards");
+  keys.forEach((k,i)=>{
+    const s=SUBJECTS[k];
+    const a=document.createElement("a");
+    a.className="card"; a.href="materia.html?m="+s.id;
+    a.style.setProperty("--ca",s.accent);
+    a.innerHTML=`<span class="card-code">materia ${String(i+1).padStart(2,"0")}</span>
+      <span class="card-name">${s.name}</span>
+      <span class="card-sub">${s.sub}</span>
+      <span class="card-blurb">${s.blurb||""}</span>
+      <span class="card-go">apri il trainer →</span>`;
+    wrap.appendChild(a);
   });
 })();
 
-/* ===== effetti visivi (non toccano la logica) ===== */
-const REDUCE=matchMedia("(prefers-reduced-motion:reduce)").matches;
-const FINE=matchMedia("(hover:hover) and (pointer:fine)").matches;
+/* ---- supporto ---- */
+(function(){
+  document.getElementById("supportText").textContent=SUPPORT.message;
+  const box=document.getElementById("supportBtns"); box.innerHTML="";
+  SUPPORT.links.forEach((l,i)=>{
+    const a=document.createElement("a");
+    a.className="coffee"+(i>0?" alt":""); a.href=l.url; a.target="_blank"; a.rel="noopener noreferrer";
+    a.innerHTML=`<span aria-hidden="true">☕</span> ${l.label}`;
+    box.appendChild(a);
+  });
+})();
 
-/* rete animata sullo sfondo */
+/* ---- tilt 3D sulle card ---- */
+(function(){
+  if(matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+  if(!matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+  document.querySelectorAll(".card").forEach(card=>{
+    card.addEventListener("mousemove",e=>{
+      const r=card.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width-.5, py=(e.clientY-r.top)/r.height-.5;
+      card.style.transform="translateY(-6px) rotateX("+(-py*7)+"deg) rotateY("+(px*9)+"deg)";
+    });
+    card.addEventListener("mouseleave",()=>{card.style.transform="";});
+  });
+})();
+
+/* ---- rete animata di sfondo (viola) ---- */
+const REDUCE=matchMedia("(prefers-reduced-motion:reduce)").matches;
 (function(){
   const cv=document.getElementById("net"); if(!cv) return;
   const ctx=cv.getContext("2d"); let W=0,H=0,DPR=1,nodes=[],packets=[],raf=0;
@@ -663,39 +188,20 @@ const FINE=matchMedia("(hover:hover) and (pointer:fine)").matches;
   function init(){size();const c=W<760?26:46;nodes=[];for(let i=0;i<c;i++)nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.16,vy:(Math.random()-.5)*.16});
     const pc=W<760?4:7;packets=[];for(let i=0;i<pc;i++)packets.push(spawn());}
   function links(){for(let i=0;i<nodes.length;i++){for(let j=i+1;j<nodes.length;j++){const a=nodes[i],b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;
-    if(d2<D*D){const al=(1-Math.sqrt(d2)/D)*0.15;ctx.strokeStyle="rgba(214,178,120,"+al+")";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}}}
-  function dots(al){for(const n of nodes){ctx.fillStyle="rgba(220,180,120,"+al+")";ctx.beginPath();ctx.arc(n.x,n.y,1.4,0,7);ctx.fill();}}
+    if(d2<D*D){const al=(1-Math.sqrt(d2)/D)*0.15;ctx.strokeStyle="rgba(150,130,210,"+al+")";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}}}}
+  function dots(al){for(const n of nodes){ctx.fillStyle="rgba(162,140,224,"+al+")";ctx.beginPath();ctx.arc(n.x,n.y,1.4,0,7);ctx.fill();}}
   function frame(){ctx.clearRect(0,0,W,H);
     for(const n of nodes){n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;}
     links();dots(.5);
     for(const p of packets){p.t+=p.sp;if(p.t>=1){Object.assign(p,spawn());continue;}
       const x=p.a.x+(p.b.x-p.a.x)*p.t,y=p.a.y+(p.b.y-p.a.y)*p.t;
-      const g=ctx.createRadialGradient(x,y,0,x,y,8);g.addColorStop(0,"rgba(244,182,98,.9)");g.addColorStop(1,"rgba(244,182,98,0)");
+      const g=ctx.createRadialGradient(x,y,0,x,y,8);g.addColorStop(0,"rgba(168,139,255,.9)");g.addColorStop(1,"rgba(168,139,255,0)");
       ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,8,0,7);ctx.fill();
-      ctx.fillStyle="rgba(255,226,172,.95)";ctx.beginPath();ctx.arc(x,y,1.7,0,7);ctx.fill();}
+      ctx.fillStyle="rgba(214,200,255,.95)";ctx.beginPath();ctx.arc(x,y,1.7,0,7);ctx.fill();}
     raf=requestAnimationFrame(frame);}
   function start(){cancelAnimationFrame(raf);if(REDUCE){ctx.clearRect(0,0,W,H);links();dots(.45);}else frame();}
   init();start();
   let rt;window.addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>{init();start();},200);});
-})();
-
-/* parallasse + tilt 3D */
-(function(){
-  if(REDUCE||!FINE) return;
-  const deck=document.getElementById("deck"), desk=document.querySelector(".desk"),
-        cv=document.getElementById("net"), amb=document.querySelector(".ambient");
-  let tx=0,ty=0,cx=0,cy=0,lz=0,hover=false;
-  const lerp=(a,b,n)=>a+(b-a)*n;
-  window.addEventListener("mousemove",e=>{tx=(e.clientX/window.innerWidth-.5)*2;ty=(e.clientY/window.innerHeight-.5)*2;},{passive:true});
-  if(deck){const w=deck.parentElement;w.addEventListener("mouseenter",()=>hover=true);w.addEventListener("mouseleave",()=>hover=false);}
-  (function loop(){
-    cx=lerp(cx,tx,.08);cy=lerp(cy,ty,.08);lz=lerp(lz,hover?28:0,.1);
-    if(desk)desk.style.transform="translate(-50%,0) rotateX(64deg) translate3d("+(cx*14)+"px,"+(cy*10)+"px,0)";
-    if(cv)cv.style.transform="translate3d("+(cx*-12)+"px,"+(cy*-8)+"px,0)";
-    if(amb)amb.style.transform="translate3d("+(cx*8)+"px,"+(cy*6)+"px,0)";
-    if(deck)deck.style.transform="rotateX("+(-cy*9)+"deg) rotateY("+(cx*10)+"deg) translateZ("+lz+"px)";
-    requestAnimationFrame(loop);
-  })();
 })();
 </script>
 </body>
